@@ -12,7 +12,6 @@ function App() {
         <Routes>
           <Route path={'/'} exact element={<Dashboard />}/>
         </Routes>
-        <CreateWorkspaceDialog />
       </div>
     </CreateWorkSpaceProvider>
   );

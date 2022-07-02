@@ -2,6 +2,7 @@ import {Dialog, Box, Grid, Typography, TextField, Button, Select, MenuItem} from
 import {useEffect, useState, useContext, createContext} from "react";
 import {CreateWorkSpaceConsumer as useCreateWorkSpaceDialog} from './CreateWorkspaceDialogHook';
 import style from './CreateWorkspaceDialog.module.css'
+import {SERVER_HOST} from "../config";
 
 function ValidateEmail(email) {
   if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))
@@ -16,7 +17,7 @@ const STEPS = {
   'SET_WORKSPACE': 'SET_WORKSPACE',
   'INVITE_PARTNER': 'INVITE_PARTNER'
 }
-export default function CreateWorkspaceDialog() {
+export default function CreateWorkspaceDialog({onSubmit}) {
   const {show, hiddenCreateWorkSpaceDialog} = useCreateWorkSpaceDialog();
   const [memberEmail, setMemberEmail] = useState('');
   const [valid, setValid] = useState(false);
@@ -40,6 +41,9 @@ export default function CreateWorkspaceDialog() {
   }, [memberEmail, workspaceName, workspaceType, workspaceDescription, step]);
   const handleClickNext = () => {
     setStep(STEPS.INVITE_PARTNER);
+  }
+  const handleConfirmCreate = () => {
+    onSubmit && onSubmit(workspaceName, workspaceDescription, workspaceType);
   }
   return (
     <Dialog maxWidth={"lg"}
@@ -124,7 +128,11 @@ export default function CreateWorkspaceDialog() {
                            size={'small'}/>
               </Box>
               <Box style={{marginTop: '40px'}}>
-                <Button variant={'contained'} disabled={!valid} fullWidth color={'info'}>Invite to workspace</Button>
+                <Button variant={'contained'}
+                        disabled={!valid}
+                        onClick={handleConfirmCreate}
+                        fullWidth
+                        color={'info'}>Invite to workspace</Button>
               </Box>
             </Grid>
             <Grid item xs={6} className={style.background}></Grid>
