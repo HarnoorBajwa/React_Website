@@ -1,0 +1,8 @@
+.titleRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.p0 {
+    padding: 0;
+}

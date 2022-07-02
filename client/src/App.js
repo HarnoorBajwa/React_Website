@@ -1,24 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from "./components/header";
+import {Routes, Route} from 'react-router-dom';
+import Dashboard from "./pages/dashboard";
+import {CreateWorkSpaceProvider} from "./components/CreateWorkspaceDialogHook";
+import CreateWorkspaceDialog from "./components/CreateWorkspaceDialog";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <CreateWorkSpaceProvider>
+      <div >
+        <Header />
+        <Routes>
+          <Route path={'/'} exact element={<Dashboard />}/>
+        </Routes>
+        <CreateWorkspaceDialog />
+      </div>
+    </CreateWorkSpaceProvider>
   );
 }
 
