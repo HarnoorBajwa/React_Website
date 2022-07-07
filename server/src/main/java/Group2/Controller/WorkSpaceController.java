@@ -22,9 +22,13 @@ public class WorkSpaceController {
 
     @PostMapping("/add")
     public Boolean add(@RequestBody WorkSpaceEntity model){
-
-        workSpaceService.save(model);
-
-        return true;
+        return workSpaceService.save(model);
     }
+
+    @PostMapping("/update")
+    public Boolean update(@RequestBody WorkSpaceEntity model){
+        return workSpaceService.updateById(model);
+    }
+
+
 }
