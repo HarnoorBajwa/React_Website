@@ -23,10 +23,12 @@ public class BoardController {
 
     @PostMapping("/add")
     public Boolean add(@RequestBody BoardEntity model){
+        return boardService.save(model);
+    }
 
-        boardService.save(model);
-
-        return true;
+    @PostMapping("/update")
+    public Boolean update(@RequestBody BoardEntity model){
+        return boardService.updateById(model);
     }
 
 
@@ -39,8 +41,6 @@ public class BoardController {
     @DeleteMapping("/deleteById/{id}")
     public Boolean deleteById(@PathVariable("id")Long id){
 
-        boardService.deleteById(id);
-
-        return true;
+        return boardService.deleteById(id);
     }
 }
