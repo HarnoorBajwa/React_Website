@@ -20,9 +20,7 @@ public class BoardController {
     @PostMapping("/add")
     public Boolean add(@RequestBody BoardEntity model){
 
-        boardService.save(model);
-
-        return true;
+        return boardService.save(model);
     }
 
     //获取看板
