@@ -1,4 +1,4 @@
-package Group2.controller;
+package Group2.Controller;
 
 import Group2.Service.WorkSpaceService;
 import Group2.entity.WorkSpaceEntity;
@@ -23,4 +23,10 @@ public class WorkSpaceController {
 
         return true;
     }
+
+    @PostMapping("/update")
+    public Boolean update(@RequestBody WorkSpaceEntity model){
+        return workSpaceService.updateById(model);
+    }
+
 }

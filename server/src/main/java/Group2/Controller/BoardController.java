@@ -1,4 +1,4 @@
-package Group2.controller;
+package Group2.Controller;
 
 import Group2.Service.BoardService;
 import Group2.entity.BoardEntity;
@@ -40,4 +40,10 @@ public class BoardController {
 
         return true;
     }
+
+    @PostMapping("/update")
+    public Boolean update(@RequestBody BoardEntity model){
+        return boardService.updateById(model);
+    }
+
 }
