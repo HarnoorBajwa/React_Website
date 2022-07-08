@@ -35,4 +35,16 @@ public class UserCont {
     public String oops(@RequestBody String model){
         return userService.gimmePassword(model);
     }
-}
+
+    /*
+    @PostMapping("/reset")
+    public String changePassword(@RequestBody String model){return userService.changePassword(model);}
+
+     */
+
+    @PostMapping("/askQuestion")
+    public String question(@RequestBody String model) {return userService.getQuestion(model);}
+
+    @PostMapping("/checkAns")
+    public String secAns(@RequestBody String email, String answer) {return userService.checkSecurityAns(email,answer);}
+    }

@@ -18,6 +18,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -37,12 +38,12 @@ public class UserControllerTests {
     @Autowired
     private MockMvc mockMvc;
 
-    private Model empty = new Model("Birch","Birch@trees.com","Ilovetrees!");
+    private Model empty = new Model("Birch","Birch@trees.com","Ilovetrees!", "Latin name?","Betula papyrifera");
     @Test
     void signupUserTest() throws Exception{
         when(service.signupUser(empty)).thenReturn(empty);
         mockMvc.perform(post("/user/save").contentType(MediaType.APPLICATION_JSON)
-                .content("{\"name\": \"Birch\", \"emailId\":\"Birch@trees.com\", \"password\":\"Ilovetrees!\"}"))
+                .content("{\"name\": \"Birch\", \"emailId\":\"Birch@trees.com\", \"password\":\"Ilovetrees!\", \"secruityQ\":\"Latin name?\", \"answer\": \"Betula papyrifera\"}"))
                 .andExpect(status().isOk());
     }
 
@@ -50,7 +51,7 @@ public class UserControllerTests {
     void loginTest() throws  Exception{
         when(service.login(empty)).thenReturn(empty);
         mockMvc.perform(post("/user/login").contentType(MediaType.APPLICATION_JSON)
-                .content("{\"name\": \"Birch\", \"emailId\":\"Birch@trees.com\", \"password\":\"Ilovetrees!\"}"))
+                .content("{\"name\": \"Birch\", \"emailId\":\"Birch@trees.com\", \"password\":\"Ilovetrees!\", \"secruityQ\":\"Latin name?\", \"answer\": \"Betula papyrifera\"}"))
                 .andExpect(status().isOk());
     }
 
@@ -59,9 +60,16 @@ public class UserControllerTests {
     void oopsTest() throws Exception{
         when(service.gimmePassword(empty.getEmailId())).thenReturn(empty.getPassword());
         mockMvc.perform(post("/user/login").contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"name\": \"Birch\", \"emailId\":\"Birch@trees.com\", \"password\":\"Ilovetrees!\"}"))
+                        .content("{\"name\": \"Birch\", \"emailId\":\"Birch@trees.com\", \"password\":\"Ilovetrees!\", \"secruityQ\":\"Latin name?\", \"answer\": \"Betula papyrifera\"}"))
                 .andExpect(status().isOk());
     }
 
+    @Test
+    void questionTest() throws Exception{
+        when(service.getQuestion(empty.getEmailId())).thenReturn(empty.getSecuirty());
+        mockMvc.perform(post("/user/askQuestion").contentType(MediaType.APPLICATION_JSON)
+                .content("{\"name\": \"Birch\", \"emailId\":\"Birch@trees.com\", \"password\":\"Ilovetrees!\", \"secruityQ\":\"Latin name?\", \"answer\": \"Betula papyrifera\"}"))
+                .andExpect(status().isOk());
+    }
 
 }

@@ -28,7 +28,7 @@ public class UserServiceTest {
     @MockBean
     private UserRepo repo;
 
-    private Model empty = new Model("Birch","Birch@trees.com","Ilovetrees!");
+    private Model empty = new Model("Birch","Birch@trees.com","Ilovetrees!", "Latin name?","Betula papyrifera");//sec
 
     @Test
     public void testLogin(){
@@ -47,6 +47,13 @@ public class UserServiceTest {
     public void testGimmePassword(){
         when(repo.findByEmailId(empty.getEmailId())).thenReturn(empty);
         assertEquals(empty.getPassword(), service.gimmePassword("Birch@trees.com"));
+    }
+
+
+    @Test
+    public void testGetQuestion(){
+        when(repo.findByEmailId(empty.getEmailId())).thenReturn(empty);
+        assertEquals(empty.getSecuirty(), service.getQuestion("Birch@trees.com"));
     }
 
 

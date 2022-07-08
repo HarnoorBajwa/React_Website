@@ -9,4 +9,5 @@ public interface UserRepo extends JpaRepository<Model, Long> {
 
     Model findByEmailId(String emailId);
 
+
 }
