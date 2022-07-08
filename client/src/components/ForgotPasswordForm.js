@@ -1,38 +1,46 @@
 import React from 'react';
-import { Grid, Paper, Avatar, TextField, Button, Typography, Link } from '@mui/material'
+import { useHistory } from "react-router-dom";
+import { Grid, Paper, Avatar, TextField, Button} from '@mui/material'
 import LockIcon from '@mui/icons-material/Lock';
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 
 
-function ForgotPasswordForm({ handleChange }) {
+function ForgotPasswordForm() {
     // const emailRef = useRef();
     // const passwordRef = useRef();
 
 
-    const paperStyle = { padding: 20, height: '60vh', width: 280, margin: '120px auto' }
+    const paperStyle = { padding: 20, height: '75vh', width: 280, margin: '120px auto' }
     const avatarSytyle = { backgroundColor: 'black' }
     const btnstyle = { margin: '8px 0' }
 
     const initialValues = {
+        email:'',
         securityQuestion:'',
         newPassword:'',
         confirmNewPassword:''
         
     }
     const validationSchema = Yup.object().shape({
+        email: Yup.string().email("Enter valid email").required("Required"),
         securityQuestion: Yup.string().oneOf([Yup.ref('securityQuestion')], "Incorect").required("Required"),
         newPassword: Yup.string().required('Required').matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
         "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"),
-        confirmNewPassword: Yup.string().oneOf([Yup.ref('newpassword')], "Password not matched").required("Required"),
+        confirmNewPassword: Yup.string().oneOf([Yup.ref('newPassword')], "Password not matched").required("Required"),
         
     })
-    const onSubmit = (values, props) => {
+    const history = useHistory();
+
+    const onSubmit = (values) => {
         console.log(values)
-        setTimeout(() => {
-            props.resetForm()
-            props.setSubmitting(false)
-        }, 2000)
+        fetch('http://localhost:8080/user/checkAns',{
+            method: 'POST',
+            body :JSON.stringify(values),
+            headers: { 'Content-Type': 'application/json'}
+
+        }).then(() => history.replace('/login'));
+        
 
     }
 
@@ -59,6 +67,8 @@ function ForgotPasswordForm({ handleChange }) {
                     <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
                         {(props) => (
                             <Form>
+                                <Field as={TextField}  name='email' label='Email' placeholder="Enter your email"
+                                 fullWidth helperText={<ErrorMessage name="email" />} />
                                 <p> Who is your favourite singer ?</p>
                                 <Field as={TextField} label="Security Answer" name='securityQuestion' placeholder="Enter answer" 
                                 fullWidth required helperText={<ErrorMessage name="securityQuestion" />}
@@ -70,9 +80,8 @@ function ForgotPasswordForm({ handleChange }) {
                                 type="password" fullWidth required
                                     helperText={<ErrorMessage name="confirmNewPassword" />}
                                 />
-                                
                                 <Button type='submit' color='primary' variant="contained" disabled={props.isSubmitting}
-                                    style={btnstyle} fullWidth>{props.isSubmitting ? "Loading" : "Sign in"}</Button>
+                                    style={btnstyle} fullWidth>Sign in</Button>
                             </Form>
                         )
                         }

@@ -35,7 +35,7 @@ import * as Yup from 'yup'
     const onSubmit=(values,props)=>{
         console.log(values)
         console.log(props)
-        fetch('http://localhost:9001/user/save',{
+        fetch('http://localhost:8080/user/save',{
             method: 'POST',
             body :JSON.stringify(values),
             headers: { 'Content-Type': 'application/json'}

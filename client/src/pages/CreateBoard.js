@@ -8,7 +8,7 @@ function CreateBoard(){
 
     function createBoardHandler(board){
         /* ToDo: Implement createBoardHandler function and bnavigate to/boards*/
-        fetch('http://localhost:9001/board/create',{
+        fetch('http://localhost:8080/board/add',{
             method: 'POST',
             body: JSON.stringify(board),
             headers:{

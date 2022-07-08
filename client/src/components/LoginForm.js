@@ -25,7 +25,7 @@ function LoginForm() {
     
     const onSubmit = (values) => {
         console.log(values)
-        fetch('http://localhost:9001/user/login')
+        fetch('http://localhost:8080/user/login')
         .then(() => { 
             // perform any function if you want let us say check 
             history.replace('/home')});

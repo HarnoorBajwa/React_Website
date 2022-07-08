@@ -1,5 +1,6 @@
 import React,{useEffect,useState} from "react";
 import ViewBoards from '../components/ViewBoards'
+import boards from '../dummy/dummyBoards'; 
 
 function Boards(){
     /* ToDO: Create state using useState hook for boards data */
@@ -7,7 +8,7 @@ function Boards(){
 
     function getAlllBoards(){
         /* ToDo: Implement getAllBoards function*/
-        fetch('http://localhost:9001/board/getAllBoards')
+        fetch('http://localhost:8080/board/getByWorkSpaceId/{workSpaceId}')
         .then(response => response.json())
         .then(boards => {
             setBoardsData(boards);
@@ -15,20 +16,12 @@ function Boards(){
         });
     };
 
-    // function deleteBoard(){
-    //     /*ToDo: Implement Delete Board function*/
-    //     fetch('http://localhost:9001/user/save',{
-    //         method: 'POST',
-    //         body :JSON.stringify(values),
-    //         headers: { 'Content-Type': 'application/json'}
-
-    //     }).then(() => history.replace('/login'));
-    // }
-
+  
     /* ToDo: Use useEffect hook to call getAllBoards()*/
     useEffect(function(){
         getAlllBoards();
     },[])
+
 
     return(
         <section>
