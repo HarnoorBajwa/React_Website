@@ -53,7 +53,7 @@ public class UserServiceTest {
     @Test
     public void testGetQuestion(){
         when(repo.findByEmailId(empty.getEmailId())).thenReturn(empty);
-        assertEquals(empty.getSecuirty(), service.getQuestion("Birch@trees.com"));
+        assertEquals(empty.getSecurity(), service.getQuestion("Birch@trees.com"));
     }
 
 

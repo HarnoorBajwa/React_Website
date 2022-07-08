@@ -24,9 +24,7 @@ public class Model {
         this.ans = ans;
     }
 
-    public Model() {
-
-    }
+   public Model(){}
 
 
     private void setId(Long id) {
@@ -48,7 +46,6 @@ public class Model {
     }
 
 
-
     public String getEmailId() {
         return emailId;
     }
@@ -61,13 +58,12 @@ public class Model {
         return password;
     }
 
-
     public void setPassword(String password) {
         this.password = password;
     }
 
 
-    public String getSecuirty(){ return secQ; }
+    public String getSecurity(){ return secQ; }
     public void setSecurity(String secQ){this.secQ = secQ;}
 
     public String getAns(){return ans;}

@@ -39,7 +39,7 @@ public class UserService {
         //have email, then returning the password
         //it should be if the security ans match then return password
         if(input.equals(alreadyThere.getEmailId())) {
-            System.out.println(alreadyThere.getSecuirty());
+            System.out.println(alreadyThere.getSecurity());
             //get the answer
             //if ans.equals(alreadyThere.getAns()){
             //
@@ -55,7 +55,7 @@ public class UserService {
     public String getQuestion(String email){
         Model alreadyThere = userRepo.findByEmailId(email);
         if(email.equals(alreadyThere.getEmailId())){
-            return alreadyThere.getSecuirty();
+            return alreadyThere.getSecurity();
         }
         else{
             String error = "You're not in the system";

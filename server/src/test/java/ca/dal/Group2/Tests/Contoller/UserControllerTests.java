@@ -2,7 +2,6 @@
 package ca.dal.Group2.Tests.Contoller;
 
 import ca.dal.Group2.User.Entity.Model;
-import ca.dal.Group2.User.Repository.UserRepo;
 import ca.dal.Group2.User.Service.UserService;
 import ca.dal.Group2.User.UserController.UserCont;
 import org.junit.jupiter.api.Test;
@@ -66,7 +65,7 @@ public class UserControllerTests {
 
     @Test
     void questionTest() throws Exception{
-        when(service.getQuestion(empty.getEmailId())).thenReturn(empty.getSecuirty());
+        when(service.getQuestion(empty.getEmailId())).thenReturn(empty.getSecurity());
         mockMvc.perform(post("/user/askQuestion").contentType(MediaType.APPLICATION_JSON)
                 .content("{\"name\": \"Birch\", \"emailId\":\"Birch@trees.com\", \"password\":\"Ilovetrees!\", \"secruityQ\":\"Latin name?\", \"answer\": \"Betula papyrifera\"}"))
                 .andExpect(status().isOk());
