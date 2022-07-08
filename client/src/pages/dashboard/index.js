@@ -134,7 +134,7 @@ function Dashboard() {
         <Grid item xs={3}>
           <Box className={style.titleRow} marginTop={'40px'}>
             <Typography>WORKSPACE</Typography>
-            <AddIcon style={{cursor: 'pointer'}} onClick={() => showCreateWorkSpaceDialog()}/>
+            <AddIcon data-testid={'create'} style={{cursor: 'pointer'}} onClick={() => showCreateWorkSpaceDialog()}/>
           </Box>
           <List className={style.p0}>
             {renderWorkspaceList()}

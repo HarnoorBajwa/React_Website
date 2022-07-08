@@ -1,4 +1,4 @@
-package Group2.Controller;
+package Group2.controller;
 
 import Group2.Service.BoardService;
 import Group2.entity.BoardEntity;
@@ -16,31 +16,28 @@ public class BoardController {
     @Autowired
     private BoardService boardService;
 
-    @GetMapping("/hello")
-    public String hello() {
-        return "hello";
-    }
-
+    //创建看板
     @PostMapping("/add")
     public Boolean add(@RequestBody BoardEntity model){
-        return boardService.save(model);
+
+        boardService.save(model);
+
+        return true;
     }
 
-    @PostMapping("/update")
-    public Boolean update(@RequestBody BoardEntity model){
-        return boardService.updateById(model);
-    }
-
-
+    //获取看板
     @GetMapping("/getByWorkSpaceId/{workSpaceId}")
     public List<BoardEntity> getByWorkSpaceId(@PathVariable("workSpaceId")Long workSpaceId){
 
         return boardService.getByWorkSpaceId(workSpaceId);
     }
 
+    //删除看板
     @DeleteMapping("/deleteById/{id}")
     public Boolean deleteById(@PathVariable("id")Long id){
 
-        return boardService.deleteById(id);
+        boardService.deleteById(id);
+
+        return true;
     }
 }
