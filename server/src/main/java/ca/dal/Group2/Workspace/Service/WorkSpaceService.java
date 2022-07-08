@@ -1,7 +1,8 @@
-package Group2.Service;
+package ca.dal.Group2.Workspace.Service;
 
-import Group2.entity.WorkSpaceEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import ca.dal.Group2.Workspace.Entity.WorkSpaceEntity;
 
 public interface WorkSpaceService extends IService<WorkSpaceEntity> {
 }

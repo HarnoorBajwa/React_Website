@@ -1,14 +1,16 @@
 package Group2;
 
-import Group2.Service.BoardService;
-import Group2.Service.WorkSpaceService;
-import Group2.entity.BoardEntity;
-import Group2.entity.WorkSpaceEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import ca.dal.Group2.Board.Entity.BoardEntity;
+import ca.dal.Group2.Board.Service.BoardService;
+import ca.dal.Group2.Workspace.Entity.WorkSpaceEntity;
+import ca.dal.Group2.Workspace.Service.WorkSpaceService;
+
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;

@@ -1,4 +1,4 @@
-package Group2.entity;
+package ca.dal.Group2.Board.Entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

@@ -1,4 +1,4 @@
-package Group2;
+package ca.dal.Group2;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

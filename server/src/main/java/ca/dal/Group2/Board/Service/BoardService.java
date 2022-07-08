@@ -1,7 +1,8 @@
-package Group2.Service;
+package ca.dal.Group2.Board.Service;
 
-import Group2.entity.BoardEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import ca.dal.Group2.Board.Entity.BoardEntity;
 
 import java.util.List;
 

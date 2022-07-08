@@ -1,10 +1,12 @@
-package Group2.Service.impl;
+package ca.dal.Group2.Board.Service.Impl;
 
-import Group2.Service.BoardService;
-import Group2.dao.BoardDao;
-import Group2.entity.BoardEntity;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+
+import ca.dal.Group2.Board.Entity.BoardEntity;
+import ca.dal.Group2.Board.Service.BoardService;
+import ca.dal.Group2.Board.dao.BoardDao;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;

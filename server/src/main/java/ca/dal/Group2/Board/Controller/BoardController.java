@@ -1,10 +1,11 @@
-package Group2.Controller;
+package ca.dal.Group2.Board.Controller;
 
-import Group2.Service.BoardService;
-import Group2.entity.BoardEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import ca.dal.Group2.Board.Entity.BoardEntity;
+import ca.dal.Group2.Board.Service.BoardService;
 
 import java.util.List;
 

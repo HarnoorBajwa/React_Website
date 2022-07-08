@@ -1,7 +1,9 @@
-package Group2.dao;
+package ca.dal.Group2.Board.dao;
 
-import Group2.entity.BoardEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+import ca.dal.Group2.Board.Entity.BoardEntity;
+
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
