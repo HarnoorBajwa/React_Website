@@ -1,7 +1,11 @@
 package ca.dal.Group2.User.UserController;
 
-import ca.dal.Group2.User.Entity.Model;
+import ca.dal.Group2.User.Entity.UserEntity;
 import ca.dal.Group2.User.Service.UserService;
+import ca.dal.Group2.Workspace.Entity.WorkSpaceEntity;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +19,7 @@ public class UserCont {
 
     @PostMapping("/save")
     //register
-    public Model signupUser(@RequestBody Model model ){
+    public UserEntity signupUser(@RequestBody UserEntity model ){
         return userService.signupUser(model);
     }
 
@@ -25,7 +29,7 @@ public class UserCont {
     //email and password return user
     //they both have to match
     @PostMapping("/login")
-    public Model login(@RequestBody Model model){
+    public UserEntity login(@RequestBody UserEntity model){
         return userService.login(model);
         //check to see if the email and password match what's in the database
         //passing in a model that you check that the Email and the password match
@@ -42,4 +46,15 @@ public class UserCont {
 
     @PostMapping("/checkAns")
     public String secAns(@RequestBody String email, String answer) {return userService.checkSecurityAns(email,answer);}
+
+    @PostMapping("/addWorkspace/{workspaceId}")
+    public boolean addWorkspacetoUser(@PathVariable Integer workspaceId, @RequestParam Integer userId){
+        userService.addWorkspacetoUser(userId, workspaceId);
+        return true;
+    }
+
+    @GetMapping("/getBoards")
+    public List<WorkSpaceEntity> getBoards(@RequestParam Integer userId){
+        return userService.getBoards(userId);
+    }
 }

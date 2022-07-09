@@ -1,9 +1,16 @@
 package ca.dal.Group2.User.Entity;
 
+import java.util.List;
+
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import ca.dal.Group2.Board.Entity.BoardEntity;
+import ca.dal.Group2.Workspace.Entity.WorkSpaceEntity;
+
 @Entity
-public class Model {
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,7 +23,21 @@ public class Model {
 
     private String ans;
 
-    public Model(String name, String emailId, String password, String secQ, String ans) {
+    @JsonIgnore
+    @ManyToMany(targetEntity = WorkSpaceEntity.class)
+    @JoinColumn(name = "workspace_map")
+    private List<WorkSpaceEntity> workspaces;
+
+    public List<WorkSpaceEntity> getWorkspaces(){
+        return workspaces;
+    }
+
+    public void setWorkspaces(List<WorkSpaceEntity> workspaces){
+        this.workspaces = workspaces;
+    }
+
+
+    public UserEntity(String name, String emailId, String password, String secQ, String ans) {
         this.name = name;
         this.emailId = emailId;
         this.password = password;
@@ -24,14 +45,12 @@ public class Model {
         this.ans = ans;
     }
 
-   public Model(){}
+   public UserEntity(){}
 
 
     private void setId(Long id) {
         this.id = id;
     }
-
-    @Id
 
     private Long getId() {
         return id;

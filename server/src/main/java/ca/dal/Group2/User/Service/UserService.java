@@ -1,7 +1,14 @@
 package ca.dal.Group2.User.Service;
 
-import ca.dal.Group2.User.Entity.Model;
+import ca.dal.Group2.User.Entity.UserEntity;
 import ca.dal.Group2.User.Repository.UserRepo;
+import ca.dal.Group2.Workspace.Entity.WorkSpaceEntity;
+import ca.dal.Group2.Workspace.Repository.WorkspaceRepo;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -14,15 +21,18 @@ public class UserService {
 
     @Autowired
     UserRepo userRepo;
-    public Model signupUser(Model input){
+
+    @Autowired WorkspaceRepo workspaceRepo;
+
+    public UserEntity signupUser(UserEntity input){
         //set up name
         //set up password
         //set up security question + answer
         return userRepo.save(input);
     }
 
-    public Model login(Model input){
-        Model alreadyThere;
+    public UserEntity login(UserEntity input){
+        UserEntity alreadyThere;
         alreadyThere = userRepo.findByEmailId(input.getEmailId());
         //return all the user info
         if(input.getPassword().equals(alreadyThere.getPassword())){
@@ -33,7 +43,7 @@ public class UserService {
     //forgot password
     public String gimmePassword(String input){
         System.out.println(input);
-        Model alreadyThere = userRepo.findByEmailId(input);
+        UserEntity alreadyThere = userRepo.findByEmailId(input);
 
 
         //have email, then returning the password
@@ -53,7 +63,7 @@ public class UserService {
 
     //takes email returns question
     public String getQuestion(String email){
-        Model alreadyThere = userRepo.findByEmailId(email);
+        UserEntity alreadyThere = userRepo.findByEmailId(email);
         if(email.equals(alreadyThere.getEmailId())){
             return alreadyThere.getSecurity();
         }
@@ -63,7 +73,7 @@ public class UserService {
         }
     }
     public String checkSecurityAns(String email, String answer){
-        Model alreadyThere = userRepo.findByEmailId(email);
+        UserEntity alreadyThere = userRepo.findByEmailId(email);
 
         if(email.equals(alreadyThere.getEmailId())&&answer.equals(alreadyThere.getAns())){
             return alreadyThere.getPassword();
@@ -78,7 +88,29 @@ public class UserService {
     //match anser + email
 
 
+    public boolean addWorkspacetoUser(int userId, int workspaceId){
+        Optional<UserEntity> user = userRepo.findById((long)userId);
+        Optional<WorkSpaceEntity> workspace = workspaceRepo.findById((long)workspaceId);
 
+        if(user.isPresent() && workspace.isPresent()){
+            List<WorkSpaceEntity> workspaces = user.get().getWorkspaces();
+            if(workspace.get() == null){
+                workspaces = new ArrayList<WorkSpaceEntity>();
+            }
+            workspaces.add(workspace.get());
+            user.get().setWorkspaces(workspaces);
+            userRepo.save(user.get());
+        }
+        return false;
+    }
 
+    public List<WorkSpaceEntity> getBoards(int userId){
+        Optional<UserEntity> user = userRepo.findById((long)userId);
+        if(user.isPresent()){
+            return user.get().getWorkspaces();
+        }
+        // List<WorkSpaceEntity> workspaces
+        return null;
+    }
 
 }

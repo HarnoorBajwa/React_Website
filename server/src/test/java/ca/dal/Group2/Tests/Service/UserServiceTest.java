@@ -1,7 +1,7 @@
 package ca.dal.Group2.Tests.Service;
 
 
-import ca.dal.Group2.User.Entity.Model;
+import ca.dal.Group2.User.Entity.UserEntity;
 import ca.dal.Group2.User.Repository.UserRepo;
 import ca.dal.Group2.User.Service.UserService;
 import org.junit.jupiter.api.Test;
@@ -28,7 +28,7 @@ public class UserServiceTest {
     @MockBean
     private UserRepo repo;
 
-    private Model empty = new Model("Birch","Birch@trees.com","Ilovetrees!", "Latin name?","Betula papyrifera");//sec
+    private UserEntity empty = new UserEntity("Birch","Birch@trees.com","Ilovetrees!", "Latin name?","Betula papyrifera");//sec
 
     @Test
     public void testLogin(){
