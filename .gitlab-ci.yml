@@ -45,5 +45,4 @@ test-job:   # This job runs in the test stage.
       reports: 
         junit:
           - server/target/surefire-reports/TEST-*.xml
-          - server/target/failsafe-reports/TEST-*.xml
       expire_in: 1 week
