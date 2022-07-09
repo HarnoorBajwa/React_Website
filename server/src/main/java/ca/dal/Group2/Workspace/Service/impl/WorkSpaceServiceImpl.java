@@ -37,7 +37,6 @@ public class WorkSpaceServiceImpl implements WorkSpaceService {
         WorkSpaceEntity ret = null;
         Optional<BoardEntity> board = boardRepo.findById((long)boardId);
         Optional<WorkSpaceEntity> workspace = workspaceRepo.findById((long)workspaceId);
-        System.out.print("sdjikrgnbszdjkrhgb");
 
         if(board.isPresent() && workspace.isPresent()){
             List<BoardEntity> boards = workspace.get().getBoards();
@@ -50,6 +49,20 @@ public class WorkSpaceServiceImpl implements WorkSpaceService {
         }
         return ret;
 
+    }
+
+    public List<BoardEntity> getBoards(int workspaceId){
+        List<BoardEntity> ret = null;
+        System.out.println("WHSYEFGBSEF: "+workspaceId);
+        Optional<WorkSpaceEntity> workspace = workspaceRepo.findById((long)workspaceId);
+
+        if(workspace.isPresent()){
+        System.out.println("WHSYEFGBSEF: "+workspaceId);
+
+            List<BoardEntity> boards = workspace.get().getBoards();
+            ret = boards;
+        }
+        return ret;
     }
 
     

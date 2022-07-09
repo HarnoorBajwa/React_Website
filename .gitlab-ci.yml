@@ -40,4 +40,11 @@ test-job:   # This job runs in the test stage.
   tags:
       - dalfcs_docker_autoscale
   script:
+
     - mvn clean verify
+  artifacts:
+      reports: 
+        junit:
+          - server/target/surefire-reports/TEST-*.xml
+      expire_in: 1 week
+
