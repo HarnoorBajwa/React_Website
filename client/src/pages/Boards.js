@@ -8,7 +8,7 @@ function Boards(){
 
     function getAlllBoards(){
         /* ToDo: Implement getAllBoards function*/
-        fetch('http://localhost:8080/board/getByWorkSpaceId/{workSpaceId}')
+        fetch('http://localhost:8080/workspace/getBoards')
         .then(response => response.json())
         .then(boards => {
             setBoardsData(boards);
