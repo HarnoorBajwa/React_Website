@@ -1,29 +1,34 @@
 package ca.dal.Group2.Board.Service.Impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import ca.dal.Group2.Board.Entity.BoardEntity;
+import ca.dal.Group2.Board.Repository.BoardRepo;
 import ca.dal.Group2.Board.Service.BoardService;
-import ca.dal.Group2.Board.dao.BoardDao;
-
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class BoardServiceImpl extends ServiceImpl<BoardDao, BoardEntity> implements BoardService {
+public class BoardServiceImpl implements BoardService{
+	
+	@Autowired
+	BoardRepo boardRepository;
+
+	@Override
+	public List<BoardEntity> getAllBoardsFromWorkspace(){
+		return boardRepository.findAll();
+	}
+
+	@Override
+	public BoardEntity createBoard(BoardEntity board) {
+		return boardRepository.save(board);
+	}
 
     @Override
-    public List<BoardEntity> getByWorkSpaceId(Long workSpaceId) {
-
-        QueryWrapper<BoardEntity> qw = new QueryWrapper<>();
-        qw.lambda().eq(BoardEntity::getWorkSpaceId, workSpaceId);
-        return baseMapper.selectList(qw);
+    public boolean deleteBoard(long boardId){
+        boardRepository.deleteById(boardId);
+        return true;
     }
 
-    @Override
-    public boolean deleteById(Long id) {
-        return baseMapper.deleteById(id) > 0;
-    }
 }

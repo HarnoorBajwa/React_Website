@@ -1,13 +1,11 @@
 package ca.dal.Group2.Board.Service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
+import java.util.List;
 
 import ca.dal.Group2.Board.Entity.BoardEntity;
 
-import java.util.List;
-
-public interface BoardService extends IService<BoardEntity> {
-    List<BoardEntity> getByWorkSpaceId(Long workSpaceId);
-
-    boolean deleteById(Long id);
+public interface BoardService{
+	public boolean deleteBoard(long boardId);
+	public List<BoardEntity> getAllBoardsFromWorkspace();
+	public BoardEntity createBoard(BoardEntity board);
 }

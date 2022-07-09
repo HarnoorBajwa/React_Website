@@ -1,7 +1,7 @@
 
 package ca.dal.Group2.Tests.Contoller;
 
-import ca.dal.Group2.User.Entity.Model;
+import ca.dal.Group2.User.Entity.UserEntity;
 import ca.dal.Group2.User.Service.UserService;
 import ca.dal.Group2.User.UserController.UserCont;
 import org.junit.jupiter.api.Test;
@@ -37,7 +37,7 @@ public class UserControllerTests {
     @Autowired
     private MockMvc mockMvc;
 
-    private Model empty = new Model("Birch","Birch@trees.com","Ilovetrees!", "Latin name?","Betula papyrifera");
+    private UserEntity empty = new UserEntity("Birch","Birch@trees.com","Ilovetrees!", "Latin name?","Betula papyrifera");
     @Test
     void signupUserTest() throws Exception{
         when(service.signupUser(empty)).thenReturn(empty);

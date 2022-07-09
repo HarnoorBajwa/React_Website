@@ -1,11 +1,11 @@
-package ca.dal.Group2.Board.dao;
+// package ca.dal.Group2.Board.dao;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+// import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-import ca.dal.Group2.Board.Entity.BoardEntity;
+// import ca.dal.Group2.Board.Entity.BoardEntity;
 
-import org.apache.ibatis.annotations.Mapper;
+// import org.apache.ibatis.annotations.Mapper;
 
-@Mapper
-public interface BoardDao extends BaseMapper<BoardEntity> {
-}
+// @Mapper
+// public interface BoardDao extends BaseMapper<BoardEntity> {
+// }

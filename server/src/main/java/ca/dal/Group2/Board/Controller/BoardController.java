@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ca.dal.Group2.Board.Entity.BoardEntity;
 import ca.dal.Group2.Board.Service.BoardService;
 
+import java.io.Console;
 import java.util.List;
 
 @CrossOrigin
@@ -19,30 +20,23 @@ public class BoardController {
 
     //创建看板
     @PostMapping("/add")
-    public Boolean add(@RequestBody BoardEntity model){
+    public BoardEntity add(@RequestBody BoardEntity model){
 
-        return boardService.save(model);
+        return boardService.createBoard(model);
+        
     }
 
-    //获取看板
-    @GetMapping("/getByWorkSpaceId/{workSpaceId}")
-    public List<BoardEntity> getByWorkSpaceId(@PathVariable("workSpaceId")Long workSpaceId){
+    // //获取看板
+    // @GetMapping("/getByWorkSpaceId/{workSpaceId}")
+    // public List<BoardEntity> getByWorkSpaceId(@PathVariable("workSpaceId")Long workSpaceId){
 
-        return boardService.getByWorkSpaceId(workSpaceId);
-    }
+    //     return boardService.getByWorkSpaceId(workSpaceId);
+    // }
 
     //删除看板
     @DeleteMapping("/deleteById/{id}")
     public Boolean deleteById(@PathVariable("id")Long id){
-
-        boardService.deleteById(id);
-
-        return true;
-    }
-
-    @PostMapping("/update")
-    public Boolean update(@RequestBody BoardEntity model){
-        return boardService.updateById(model);
+        return boardService.deleteBoard(id);
     }
 
 }
