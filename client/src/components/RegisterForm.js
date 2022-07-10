@@ -14,20 +14,20 @@ import * as Yup from 'yup'
     const avatarStyle = { backgroundColor: 'blue' }
     const initialValues={
         name:'',
-        email:'',
+        emailId:'',
         password:'',
         confirmPassword:'',
-        securityQuestion:'',
+        secQ:'',
         
     }
     
     const validationSchema = Yup.object().shape({
         name: Yup.string().min(3, "It's too short").required("Required"),
-        email: Yup.string().email("Enter valid email").required("Required"),
+        emailId: Yup.string().email("Enter valid email").required("Required"),
         password: Yup.string().required('Required').matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
         "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"),
         confirmPassword: Yup.string().oneOf([Yup.ref('password')], "Password not matched").required("Required"),
-        securityQuestion: Yup.string().required('Required'),
+        secQ: Yup.string().required('Required'),
        
     })
     const history = useHistory();
@@ -62,17 +62,17 @@ import * as Yup from 'yup'
                          <Form >
                              <Field as={TextField} fullWidth name='name' label='Name' placeholder="Enter your Name"
                                  helperText={<ErrorMessage name="name" />} />
-                             <Field as={TextField} fullWidth name='email' label='Email' placeholder="Enter your email"
-                                  helperText={<ErrorMessage name="email" />} />
+                             <Field as={TextField} fullWidth name='emailId' label='Email' placeholder="Enter your email"
+                                  helperText={<ErrorMessage name="emailId" />} />
                              <Field as={TextField} fullWidth name='password' label='Password' placeholder="Enter your password" type="password"
                                   helperText={<ErrorMessage name="password" />} />
                              <Field as={TextField} fullWidth name='confirmPassword' label='Confirm Password' placeholder="Confirm your password"
                                  type="password" helperText={<ErrorMessage name="confirmPassword" />} />
                              <p> Who is your favourite singer ?</p>
-                             <Field as={TextField} fullWidth name='securityQuestion' label='Type here' placeholder="Enter you answer"
-                                 helperText={<ErrorMessage name="securityQuestion" />} />
+                             <Field as={TextField} fullWidth name='secQ' label='Type here' placeholder="Enter you answer"
+                                 helperText={<ErrorMessage name="secQ" />} />
                             
-                            <Button type='submit' variant='contained' color='primary'>Create Button</Button>
+                            <Button type='submit' variant='contained' color='primary'>Register</Button>
                              
                          </Form>
                  )}

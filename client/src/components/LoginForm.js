@@ -14,21 +14,31 @@ function LoginForm() {
     const avatarSytyle = { backgroundColor: 'black' }
 
     const initialValues = {
-        email: '',
+        emailId: '',
         password: '',
     }
     const validationSchema = Yup.object().shape({
-        email: Yup.string().email('please enter valid email').required("Required"),
+        emailId: Yup.string().email('please enter valid email').required("Required"),
         password: Yup.string().required("Required")
     })
     const history = useHistory();
     
     const onSubmit = (values) => {
         console.log(values)
-        fetch('http://localhost:8080/user/login')
-        .then(() => { 
-            // perform any function if you want let us say check 
-            history.replace('/home')});
+        fetch('http://localhost:8080/user/login', {
+            method: 'POST',
+            body :JSON.stringify(values),
+            headers: { 'Content-Type': 'application/json'}
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Success:', data);
+          localStorage.setItem("user",data.id );
+          history.push("/home")
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
         
     }
 
@@ -55,8 +65,8 @@ function LoginForm() {
                     <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
                         {(props) => (
                             <Form>
-                                <Field as={TextField} label="Email" name='email' placeholder="Enter email" fullWidth required
-                                    helperText={<ErrorMessage name="email" />}
+                                <Field as={TextField} label="Email" name='emailId' placeholder="Enter email" fullWidth required
+                                    helperText={<ErrorMessage name="emailId" />}
                                 />
                                 <Field as={TextField} label="Password" name="password" placeholder="Enter password" type="password" fullWidth required
                                     helperText={<ErrorMessage name="password" />}

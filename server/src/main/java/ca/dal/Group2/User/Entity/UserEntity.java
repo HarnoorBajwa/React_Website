@@ -52,7 +52,7 @@ public class UserEntity {
         this.id = id;
     }
 
-    private Long getId() {
+    public Long getId() {
         return id;
     }
 

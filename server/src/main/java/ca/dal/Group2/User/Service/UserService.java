@@ -5,6 +5,7 @@ import ca.dal.Group2.User.Repository.UserRepo;
 import ca.dal.Group2.Workspace.Entity.WorkSpaceEntity;
 import ca.dal.Group2.Workspace.Repository.WorkspaceRepo;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -35,7 +36,7 @@ public class UserService {
         UserEntity alreadyThere;
         alreadyThere = userRepo.findByEmailId(input.getEmailId());
         //return all the user info
-        if(input.getPassword().equals(alreadyThere.getPassword())){
+        if(alreadyThere != null && input.getPassword().equals(alreadyThere.getPassword())){
             return alreadyThere;
         }
         return null;
@@ -104,7 +105,7 @@ public class UserService {
         return false;
     }
 
-    public List<WorkSpaceEntity> getBoards(int userId){
+    public List<WorkSpaceEntity> getWorkspaces(int userId){
         Optional<UserEntity> user = userRepo.findById((long)userId);
         if(user.isPresent()){
             return user.get().getWorkspaces();

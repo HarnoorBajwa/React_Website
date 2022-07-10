@@ -40,7 +40,7 @@ function Dashboard() {
   }, [workspaces, currentWorkspaceIndex])
   useEffect(() => {
     if (currentWorkspace) {
-      fetch(SERVER_HOST + `/board/getByWorkSpaceId/${currentWorkspace.id}`)
+      fetch(SERVER_HOST + `/workspace/getBoards/${currentWorkspace.id}`)
         .then(res => res.json())
         .then(data => {
           setBoards(data);
@@ -48,14 +48,15 @@ function Dashboard() {
     }
   }, [currentWorkspace]);
   useEffect(() => {
-    fetch(SERVER_HOST + '/workSpace')
+    console.log(SERVER_HOST + '/user/getWorkspaces/'+7);
+    fetch(SERVER_HOST + '/user/getWorkspaces/'+7)
       .then(res => res.json())
       .then(data => {
         setWorkspaces(data);
       })
   }, [refresh]);
   const handleCreateWorkspace = (name, description, type) => {
-    fetch(SERVER_HOST + '/workSpace/add', {
+    fetch(SERVER_HOST + '/workspace/add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -71,15 +72,14 @@ function Dashboard() {
     })
   }
   const handleCreateBoard = (title, description) => {
-    fetch(SERVER_HOST + '/board/add', {
+    fetch(SERVER_HOST + '/board/add/'+currentWorkspace.id, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        workSpaceId: currentWorkspace.id,
         boardName: title,
-        boardDescription: description
+        boardDescription: description,
       })
     }).then(res => {
       setRefresh(!refresh);
