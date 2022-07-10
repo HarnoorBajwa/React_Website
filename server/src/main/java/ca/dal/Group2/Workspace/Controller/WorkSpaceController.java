@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.dal.Group2.Board.Entity.BoardEntity;
+import ca.dal.Group2.User.Service.UserService;
 import ca.dal.Group2.Workspace.Entity.WorkSpaceEntity;
 import ca.dal.Group2.Workspace.Service.WorkSpaceService;
 
@@ -25,21 +26,19 @@ public class WorkSpaceController {
     @Autowired
     private WorkSpaceService workSpaceService;
 
+    @Autowired
+    private UserService userService;
+
 
     //创建工作区
     @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping("add")
-    public WorkSpaceEntity add(@RequestBody WorkSpaceEntity model){
-
-        return workSpaceService.add(model);
+    @PostMapping("add/{userId}")
+    public WorkSpaceEntity add(@RequestBody WorkSpaceEntity model, @PathVariable Integer userId){
+        WorkSpaceEntity newWorkspace = workSpaceService.add(model);
+        userService.addWorkspacetoUser(userId, newWorkspace.getId().intValue());
+        return newWorkspace;
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping("addUserToWorkspace/{workSpaceId}/{userEmail}")
-    public Boolean addUserToWorkspace(){
-
-        return true;
-    }
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("addBoardToWorkspace/{workspaceId}")

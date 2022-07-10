@@ -114,4 +114,8 @@ public class UserService {
         return null;
     }
 
+    public UserEntity getUserByEmail(String email){
+        return userRepo.findByEmailId(email);
+    }
+
 }

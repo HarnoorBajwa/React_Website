@@ -6,6 +6,7 @@ import ca.dal.Group2.Workspace.Entity.WorkSpaceEntity;
 
 import java.io.Console;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -66,4 +67,13 @@ public class UserCont {
     public List<WorkSpaceEntity> getBoards(@PathVariable Integer userId){
         return userService.getWorkspaces(userId);
     }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping("addUserToWorkspace/{workspaceId}")
+    public Boolean addUserToWorkspace(@RequestBody Map<String, Object> payload, @PathVariable Integer workspaceId){
+        System.out.println("Getting the email: "+payload.get("userEmail"));
+        UserEntity user = userService.getUserByEmail((String)payload.get("userEmail"));
+        return userService.addWorkspacetoUser(user.getId().intValue(), workspaceId);
+    }
+
 }

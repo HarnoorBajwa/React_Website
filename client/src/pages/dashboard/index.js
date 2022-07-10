@@ -8,18 +8,22 @@ import {
   ListItemIcon,
   ListItemText,
   ListItemButton,
-  Avatar
+  Avatar,
+  Button,
+  Input
 } from "@mui/material";
 import { deepOrange } from '@mui/material/colors';
 import AddIcon from '@mui/icons-material/Add';
 import style from './style.module.css';
 import {CreateWorkSpaceConsumer as useCreateWorkSpace} from "../../components/CreateWorkspaceDialogHook";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import DeleteIcon from '@mui/icons-material/Delete';
 import {SERVER_HOST} from '../../config';
 import CreateBoardDialog from "../../components/CreateBoardDialog";
 import CreateWorkspaceDialog from "../../components/CreateWorkspaceDialog";
+import { useHistory } from "react-router-dom";
 function Dashboard() {
+  const history = useHistory();
 
   const [workspaces, setWorkspaces] = useState([{
     id: 1,
@@ -35,6 +39,9 @@ function Dashboard() {
   const {showCreateWorkSpaceDialog, hiddenCreateWorkSpaceDialog} = useCreateWorkSpace();
   const [currentWorkspace, setCurrentWorkspace] = useState(null);
   const [currentWorkspaceIndex, setCurrentWorkspaceIndex] = useState(0);
+
+  const shareEmail = useRef();
+
   useEffect(() => {
     setCurrentWorkspace(workspaces[currentWorkspaceIndex]);
   }, [workspaces, currentWorkspaceIndex])
@@ -48,15 +55,15 @@ function Dashboard() {
     }
   }, [currentWorkspace]);
   useEffect(() => {
-    console.log(SERVER_HOST + '/user/getWorkspaces/'+7);
-    fetch(SERVER_HOST + '/user/getWorkspaces/'+7)
+    console.log(SERVER_HOST + '/user/getWorkspaces/'+getUser());
+    fetch(SERVER_HOST + '/user/getWorkspaces/'+getUser())
       .then(res => res.json())
       .then(data => {
         setWorkspaces(data);
       })
   }, [refresh]);
   const handleCreateWorkspace = (name, description, type) => {
-    fetch(SERVER_HOST + '/workspace/add', {
+    fetch(SERVER_HOST + '/workspace/add/'+getUser(), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -93,6 +100,28 @@ function Dashboard() {
       setRefresh(!refresh);
     })
   }
+  const getUser = () => {
+    if(localStorage.getItem("user") == undefined || localStorage.getItem("user") == ""){
+      history.replace("/login");
+    }
+    console.log(localStorage.getItem("user"));
+    return localStorage.getItem("user"); 
+  }
+  const handleAddUsertoWorkspace = () =>{
+    console.log(shareEmail.current.value);
+    fetch(SERVER_HOST + '/user/addUserToWorkspace/'+currentWorkspace.id, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        userEmail: shareEmail.current.value
+      })
+    }).then(res => {
+      setRefresh(!refresh);
+      setShowCreateBoard(false);
+    })
+  } 
   const renderBoards = () => {
     return boards.map(board => {
       return (
@@ -120,6 +149,7 @@ function Dashboard() {
             </ListItemIcon>
             <ListItemText primary={workspace.workSpaceName}/>
           </ListItemButton>
+          {/* <Button onClick={() => handleCreateWorkspace(index)}>+ User</Button> */}
         </ListItem>
       )
     })
@@ -155,6 +185,10 @@ function Dashboard() {
                     {currentWorkspace.workSpaceName[0]}
                   </Avatar>
                   <Typography variant={'h6'} marginLeft={'10px'}>{currentWorkspace.workSpaceName}</Typography>
+                  {/* <div></div> */}
+                  <h2>add user</h2>
+                  <input ref={shareEmail}></input>
+                  <Button onClick={handleAddUsertoWorkspace}>Add</Button>
                 </Box>
               </Box>
               <Box boxSizing={'border-box'} padding={'10px'} display={'flex'} flexWrap={'wrap'}>

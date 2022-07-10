@@ -7,12 +7,22 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import CreateWorkspaceButton from "./CreateWorkspaceButton";
+import { Link } from 'react-router-dom';
 
 
 
 function Header() {
+  const logOut = () => {
+    localStorage.setItem("user","");
+  }
   return (
     <Box sx={{ flexGrow: 1 }}>
+      <button><Link to="/login">Login</Link></button>
+      <button><Link to="/register">Register</Link></button>
+      <button><Link to="/forgot-password">Forgot password</Link></button>
+      <button><Link to="/workspace">Workspace and Boards</Link></button>
+      <button><Link to="/home">Good Home Page</Link></button>
+      <button onClick={logOut}>Logout</button>
       <AppBar position="static">
         <Toolbar variant="dense">
           <IconButton
