@@ -76,4 +76,27 @@ public class UserCont {
         return userService.addWorkspacetoUser(user.getId().intValue(), workspaceId);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping("forgetPassword")
+    public String forgetPassword(@RequestBody Map<String, Object> payload){
+        String email = (String)payload.get("email");
+        String answer = (String)payload.get("answer");
+        String password = (String)payload.get("password");
+
+        System.out.println(email);
+        System.out.println(password);
+        System.out.println(answer);
+
+        UserEntity user = userService.getUserByEmail(email);
+        if(user != null){
+            if(user.getAns().equals(answer)){
+                user.setPassword(password);
+                userService.signupUser(user);
+            }
+            return "answer wrong";
+        }
+
+        return "Something is wrong, check your stuff";
+    }
+
 }

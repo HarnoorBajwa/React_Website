@@ -17,29 +17,33 @@ function ForgotPasswordForm() {
 
     const initialValues = {
         email:'',
-        securityQuestion:'',
-        newPassword:'',
+        answer:'',
+        password:'',
         confirmNewPassword:''
         
     }
     const validationSchema = Yup.object().shape({
         email: Yup.string().email("Enter valid email").required("Required"),
-        securityQuestion: Yup.string().oneOf([Yup.ref('securityQuestion')], "Incorect").required("Required"),
-        newPassword: Yup.string().required('Required').matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
+        answer: Yup.string().oneOf([Yup.ref('answer')], "Incorect").required("Required"),
+        password: Yup.string().required('Required').matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
         "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"),
-        confirmNewPassword: Yup.string().oneOf([Yup.ref('newPassword')], "Password not matched").required("Required"),
+        confirmNewPassword: Yup.string().oneOf([Yup.ref('password')], "Password not matched").required("Required"),
         
     })
     const history = useHistory();
 
     const onSubmit = (values) => {
         console.log(values)
-        fetch('http://localhost:8080/user/checkAns',{
+        fetch('http://localhost:8080/user/forgetPassword',{
             method: 'POST',
             body :JSON.stringify(values),
             headers: { 'Content-Type': 'application/json'}
 
-        }).then(() => history.replace('/login'));
+        }).then((res) => {
+            console.log(res);
+            history.replace('/login');
+        
+        });
         
 
     }
@@ -70,11 +74,11 @@ function ForgotPasswordForm() {
                                 <Field as={TextField}  name='email' label='Email' placeholder="Enter your email"
                                  fullWidth helperText={<ErrorMessage name="email" />} />
                                 <p> Who is your favourite singer ?</p>
-                                <Field as={TextField} label="Security Answer" name='securityQuestion' placeholder="Enter answer" 
-                                fullWidth required helperText={<ErrorMessage name="securityQuestion" />}
+                                <Field as={TextField} label="Security Answer" name='answer' placeholder="Enter answer" 
+                                fullWidth required helperText={<ErrorMessage name="answer" />}
                                 />
-                                <Field as={TextField} label="New Password" name="newPassword" placeholder="Enter password" type="password"
-                                 fullWidth required helperText={<ErrorMessage name="newPassword" />}
+                                <Field as={TextField} label="New Password" name="password" placeholder="Enter password" type="password"
+                                 fullWidth required helperText={<ErrorMessage name="password" />}
                                 />
                                 <Field as={TextField} label=" Confirm New Password" name="confirmNewPassword" placeholder="Enter password" 
                                 type="password" fullWidth required

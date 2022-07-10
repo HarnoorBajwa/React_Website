@@ -17,7 +17,7 @@ import * as Yup from 'yup'
         emailId:'',
         password:'',
         confirmPassword:'',
-        secQ:'',
+        ans:'',
         
     }
     
@@ -27,7 +27,7 @@ import * as Yup from 'yup'
         password: Yup.string().required('Required').matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
         "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"),
         confirmPassword: Yup.string().oneOf([Yup.ref('password')], "Password not matched").required("Required"),
-        secQ: Yup.string().required('Required'),
+        ans: Yup.string().required('Required'),
        
     })
     const history = useHistory();
@@ -69,8 +69,8 @@ import * as Yup from 'yup'
                              <Field as={TextField} fullWidth name='confirmPassword' label='Confirm Password' placeholder="Confirm your password"
                                  type="password" helperText={<ErrorMessage name="confirmPassword" />} />
                              <p> Who is your favourite singer ?</p>
-                             <Field as={TextField} fullWidth name='secQ' label='Type here' placeholder="Enter you answer"
-                                 helperText={<ErrorMessage name="secQ" />} />
+                             <Field as={TextField} fullWidth name='ans' label='Type here' placeholder="Enter you answer"
+                                 helperText={<ErrorMessage name="ans" />} />
                             
                             <Button type='submit' variant='contained' color='primary'>Register</Button>
                              
