@@ -15,10 +15,10 @@ public class BoardServiceImpl implements BoardService{
 	@Autowired
 	BoardRepo boardRepository;
 
-	@Override
-	public List<BoardEntity> getAllBoardsFromWorkspace(){
-		return boardRepository.findAll();
-	}
+	// @Override
+	// public List<BoardEntity> getAllBoardsFromWorkspace(){
+	// 	return boardRepository.findAll();
+	// }
 
 	@Override
 	public BoardEntity createBoard(BoardEntity board) {

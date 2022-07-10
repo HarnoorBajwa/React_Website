@@ -17,9 +17,9 @@
 
 
 
-// @SpringBootTest
-// @Slf4j
-// @ExtendWith(MockitoExtension.class)
+// @ContextConfiguration(classes = {UserService.class})
+// @ExtendWith(SpringExtension.class)
+// @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 // public class ServerApplicationTests {
 
 //     @Mock
@@ -38,8 +38,8 @@
 //         model.setWorkSpaceName("work_space_test");
 //         model.setWorkSpaceDescription("work_space_test");
 //         model.setWorkSpaceType("work_space_test");
-//         Mockito.when(workSpaceService.save(model)).thenReturn(true);
-//         boolean save = workSpaceService.save(model);
+//         Mockito.when(workSpaceService.add(model)).thenReturn(model);
+//         WorkSpaceEntity save = workSpaceService.add(model);
 //         log.info("work_space_test result:" + save);
 //     }
 
@@ -48,12 +48,12 @@
 
 //         log.info("board_test start");
 //         BoardEntity model = new BoardEntity();
-//         model.setWorkSpaceId(1L);
+//         model.setId(1L);
 //         model.setBoardName("board_test");
 //         model.setBoardDescription("board_test");
-//         Mockito.when(boardService.save(model)).thenReturn(true);
+//         Mockito.when(boardService.createBoard(model)).thenReturn(model);
 
-//         boolean save = boardService.save(model);
+//         BoardEntity save = boardService.createBoard(model);
 //         log.info("board_test result:" + save);
 //     }
 

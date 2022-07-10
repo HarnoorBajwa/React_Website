@@ -4,6 +4,8 @@ package ca.dal.Group2.Tests.Service;
 import ca.dal.Group2.User.Entity.UserEntity;
 import ca.dal.Group2.User.Repository.UserRepo;
 import ca.dal.Group2.User.Service.UserService;
+import ca.dal.Group2.Workspace.Repository.WorkspaceRepo;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,6 +29,10 @@ public class UserServiceTest {
 
     @MockBean
     private UserRepo repo;
+
+
+    @MockBean
+    private WorkspaceRepo workspaceRepo;
 
     private UserEntity empty = new UserEntity("Birch","Birch@trees.com","Ilovetrees!", "Latin name?","Betula papyrifera");//sec
 
