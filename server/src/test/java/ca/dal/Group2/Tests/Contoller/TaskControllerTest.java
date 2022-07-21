@@ -44,7 +44,7 @@ public class TaskControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse().getContentAsString();
-        System.out.println("result is: ：" + responseString);
+        System.out.println("result is: " + responseString);
     }
 
     @Test
@@ -64,6 +64,6 @@ public class TaskControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse().getContentAsString();
-        System.out.println("result is: ：" + responseString);
+        System.out.println("result is: " + responseString);
     }
 }

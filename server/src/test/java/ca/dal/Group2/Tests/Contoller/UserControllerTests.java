@@ -5,7 +5,7 @@ import ca.dal.Group2.ServerApplication;
 import ca.dal.Group2.User.Entity.UserEntity;
 import ca.dal.Group2.User.Service.UserService;
 import org.junit.Before;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -52,7 +52,7 @@ public class UserControllerTests {
 
 
     @Test
-    void signupUserTest() throws Exception{
+    public void signupUserTest() throws Exception{
 //        when(service.signupUser(empty)).thenReturn(empty);
 //        mockMvc.perform(post("/user/save").contentType(MediaType.APPLICATION_JSON)
 //                .content("{\"name\": \"Birch\", \"emailId\":\"Birch@trees.com\", \"password\":\"Ilovetrees!\", \"secruityQ\":\"Latin name?\", \"answer\": \"Betula papyrifera\"}"))
@@ -68,28 +68,31 @@ public class UserControllerTests {
     }
 
     @Test
-    void loginTest() throws  Exception{
+    public void loginTest() throws  Exception{
         when(service.login(empty)).thenReturn(empty);
-        mockMvc.perform(post("/user/login").contentType(MediaType.APPLICATION_JSON)
-                .content("{\"name\": \"Birch\", \"emailId\":\"Birch@trees.com\", \"password\":\"Ilovetrees!\", \"secruityQ\":\"Latin name?\", \"answer\": \"Betula papyrifera\"}"))
-                .andExpect(status().isOk());
+        String responseString = mockMvc.perform(post("/user/login").contentType(MediaType.APPLICATION_JSON)
+                .content("{\"emailId\":\"Birch@trees.com\", \"password\":\"Ilovetrees!\"}"))
+                .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        System.out.println("result is：" + responseString);
     }
 
 
     @Test
-    void oopsTest() throws Exception{
+    public void oopsTest() throws Exception{
         when(service.gimmePassword(empty.getEmailId())).thenReturn(empty.getPassword());
-        mockMvc.perform(post("/user/login").contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"emailId\":\"tom@163.com\", \"password\":\"123456\"}"))
-                .andExpect(status().isOk());
+        String responseString = mockMvc.perform(post("/user/forgot").contentType(MediaType.APPLICATION_JSON)
+                .content("{\"emailId\":\"Birch@trees.com\"}"))
+                .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        System.out.println("result is：" + responseString);
     }
 
     @Test
-    void questionTest() throws Exception{
+    public void questionTest() throws Exception{
         when(service.getQuestion(empty.getEmailId())).thenReturn(empty.getSecQ());
-        mockMvc.perform(post("/user/askQuestion").contentType(MediaType.APPLICATION_JSON)
-                .content("{\"name\": \"Birch\", \"emailId\":\"Birch@trees.com\", \"password\":\"Ilovetrees!\", \"secruityQ\":\"Latin name?\", \"answer\": \"Betula papyrifera\"}"))
-                .andExpect(status().isOk());
+        String responseString = mockMvc.perform(post("/user/askQuestion").contentType(MediaType.APPLICATION_JSON)
+                .content("{\"emailId\":\"Birch@trees.com\"}"))
+                .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        System.out.println("result is：" + responseString);
     }
 
 }

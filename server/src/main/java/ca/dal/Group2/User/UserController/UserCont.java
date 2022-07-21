@@ -32,7 +32,6 @@ public class UserCont {
 
     @PostMapping("/login")
     public UserEntity login(@RequestBody UserEntity model){
-        System.out.println(userService.login(model));
         return userService.login(model);
         //check to see if the email and password match what's in the database
         //passing in a model that you check that the Email and the password match

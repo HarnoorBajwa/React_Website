@@ -7,7 +7,6 @@ import ca.dal.Group2.User.Repository.UserRepo;
 import ca.dal.Group2.Workspace.Entity.WorkSpaceEntity;
 import ca.dal.Group2.Workspace.Repository.WorkspaceRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,7 +16,6 @@ import java.util.Optional;
 
 
 @Service
-@Repository
 public class UserService {
 
     @Autowired
@@ -26,7 +24,7 @@ public class UserService {
     @Autowired
     WorkspaceRepo workspaceRepo;
 
-    @Autowired
+    @Autowired(required = false)
     TaskRepo taskRepo;
 
     public UserEntity signupUser(UserEntity input){
@@ -37,8 +35,7 @@ public class UserService {
     }
 
     public UserEntity login(UserEntity input){
-        UserEntity alreadyThere;
-        alreadyThere = userRepo.findByEmailId(input.getEmailId());
+        UserEntity alreadyThere = userRepo.findByEmailId(input.getEmailId());
         //return all the user info
         if(alreadyThere != null && input.getPassword().equals(alreadyThere.getPassword())){
             return alreadyThere;
