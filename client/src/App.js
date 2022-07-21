@@ -6,12 +6,14 @@ import CreateWorkspaceDialog from "./components/CreateWorkspaceDialog";
 import { Container } from "@mui/material";
 import React from "react";
 import Navigation from "./components/Navigation";
+import Createtasks from "./components/CreateTasks"
 import Boards from "./pages/Boards";
 import CreateBoard from "./pages/CreateBoard";
 import ForgotPasswordPage from "./pages/ForgotPassword";
 import HomePage from "./pages/Home";
 import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
+import TaskPage from "./pages/TaskPage";
 
 
 function App() {
@@ -41,7 +43,11 @@ function App() {
           <Route path="/workspace">
             <Dashboard />
           </Route>
+          <Route path ="/tasks">
+            <TaskPage/>
+          </Route>
         </Switch>
+        
       </div>
     </CreateWorkSpaceProvider>
   );

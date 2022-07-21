@@ -21,6 +21,7 @@ function Header() {
       <button><Link to="/register">Register</Link></button>
       <button><Link to="/forgot-password">Forgot password</Link></button>
       <button><Link to="/workspace">Workspace and Boards</Link></button>
+      <button><Link to="/tasks">Tasks</Link></button>
       <button><Link to="/home">Good Home Page</Link></button>
       <button onClick={logOut}>Logout</button>
       <AppBar position="static">
