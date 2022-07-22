@@ -59,6 +59,9 @@ function Dashboard() {
     fetch(SERVER_HOST + '/user/getWorkspaces/'+getUser())
       .then(res => res.json())
       .then(data => {
+        if(data == undefined){
+          data = [{}]
+        }
         setWorkspaces(data);
       })
   }, [refresh]);
@@ -171,7 +174,7 @@ function Dashboard() {
         <Grid item xs={3}>
           <Box className={style.titleRow} marginTop={'40px'}>
             <Typography>WORKSPACE</Typography>
-            <AddIcon data-testid={'create'} style={{cursor: 'pointer'}} onClick={() => showCreateWorkSpaceDialog()}/>
+            <Button data-testid={'create'} style={{cursor: 'pointer'}} onClick={() => showCreateWorkSpaceDialog()}>Add</Button>
           </Box>
           <List className={style.p0}>
             {renderWorkspaceList()}

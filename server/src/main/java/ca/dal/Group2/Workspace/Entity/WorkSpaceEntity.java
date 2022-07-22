@@ -23,6 +23,49 @@ public class WorkSpaceEntity {
 
 
 
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getWorkSpaceName() {
+        return this.workSpaceName;
+    }
+
+    public void setWorkSpaceName(String workSpaceName) {
+        this.workSpaceName = workSpaceName;
+    }
+
+    public String getWorkSpaceDescription() {
+        return this.workSpaceDescription;
+    }
+
+    public void setWorkSpaceDescription(String workSpaceDescription) {
+        this.workSpaceDescription = workSpaceDescription;
+    }
+
+    public String getWorkSpaceType() {
+        return this.workSpaceType;
+    }
+
+    public void setWorkSpaceType(String workSpaceType) {
+        this.workSpaceType = workSpaceType;
+    }
+
+    public List<BoardEntity> getBoards() {
+        return this.boards;
+    }
+
+    public void setBoards(List<BoardEntity> boards) {
+        this.boards = boards;
+    }
+
+
+
+
 
 
 }

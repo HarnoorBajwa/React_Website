@@ -106,6 +106,26 @@ public class UserService {
         return false;
     }
 
+
+    public String forgetPassword(String email, String answer, String password){
+        UserEntity user = getUserByEmail(email);
+        if(user != null){
+            if(user.getAns().equals(answer)){
+                user.setPassword(password);
+                signupUser(user);
+            }
+            return "answer wrong";
+        }
+
+        return "Something is wrong, check your stuff";
+    }
+
+
+    public boolean addWorkspacetoUser(String userEmail, int workspaceId){
+        UserEntity user = getUserByEmail(userEmail);
+        return addWorkspacetoUser(user.getId().intValue(), workspaceId);
+    }
+
     public boolean addUserToTask(String useremailId, Long taskId){
         Optional<UserEntity> user = Optional.of(userRepo.findByEmailId(useremailId));
         Optional<TaskEntity> task = taskRepo.findById(taskId);

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useHistory } from "react-router-dom";
 import "../styles/Task.scss";
 import StatusLine from "./StatusLine";
 
@@ -6,6 +7,7 @@ import StatusLine from "./StatusLine";
 function Tasks(){
 
     const [tasks, setTasks] = useState([]);
+    const history = useHistory();
     // const [searchQuery, setSearchQuery] = useState("");
     var searchQuery = "";
     var dateFilter = "";
@@ -180,6 +182,7 @@ function Tasks(){
   const searchTasks = () => {
     // setSearchQuery(search.current.value);
     // setSearchQuery("tasks");
+    dateFilter = "";
     searchQuery = search.current.value;
     console.log("input box: "+searchQuery);
     loadTasksFromLocalStorage();
@@ -192,6 +195,13 @@ function Tasks(){
   }
 
   function loadTasksFromLocalStorage() {
+    console.log("board: "+localStorage.getItem("board"))
+    if(localStorage.getItem('user') == ""){
+      history.push("login");
+    }
+    if(localStorage.getItem("board") == ""){
+      history.push("workspace");
+    }
     let fetchUrl = "http://localhost:8080/task/";
     if(searchQuery != ""){
       console.log("getting search");
