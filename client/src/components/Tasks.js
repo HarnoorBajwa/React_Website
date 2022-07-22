@@ -180,6 +180,7 @@ function Tasks(){
   const searchTasks = () => {
     // setSearchQuery(search.current.value);
     // setSearchQuery("tasks");
+    dateFilter = "";
     searchQuery = search.current.value;
     console.log("input box: "+searchQuery);
     loadTasksFromLocalStorage();

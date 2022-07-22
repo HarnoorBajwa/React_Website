@@ -59,7 +59,7 @@ public class TaskServiceImpl implements TaskService{
 		List<TaskEntity> list = taskRepo.findAll();
 		ArrayList<TaskEntity> dtos = new ArrayList<>();
 		for(TaskEntity entity : list){
-				if(entity.getBoard().getId() == boardId){
+				if(Long.toString(entity.getBoard().getId()).equals(Long.toString(boardId))){
 					dtos.add(entity);
 			}
 		}
