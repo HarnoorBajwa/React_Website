@@ -8,6 +8,7 @@ function Tasks(){
     const [tasks, setTasks] = useState([]);
     // const [searchQuery, setSearchQuery] = useState("");
     var searchQuery = "";
+    var dateFilter = "";
     const search = useRef();
 
 
@@ -45,7 +46,7 @@ function Tasks(){
     if(taskToAdd.id === -1){
       // new task
       const dueDate = {
-        'dueDate':taskToAdd.date + " "+"00:00:00"
+        'dueDate':taskToAdd.date + " "+"12:00:00"
       }
   
       fetch('http://localhost:8080/dueDate/create', {
@@ -184,11 +185,20 @@ function Tasks(){
     loadTasksFromLocalStorage();
   }
 
+  const filterDate = (filterType) => {
+    searchQuery = "";
+    dateFilter = filterType;
+    loadTasksFromLocalStorage();
+  }
+
   function loadTasksFromLocalStorage() {
     let fetchUrl = "http://localhost:8080/task/";
     if(searchQuery != ""){
       console.log("getting search");
       fetchUrl += "search/"+boardId+"/?query="+searchQuery;
+    }
+    else if(dateFilter != ""){
+      fetchUrl += "dateFilter/"+boardId+"/?filterType="+dateFilter;
     }
     else{
       fetchUrl += "getAll/"+boardId;
@@ -251,6 +261,12 @@ function Tasks(){
           <input ref={search}></input>
           <button onClick={() => searchTasks()}>Go</button>
           </span>
+          <div>
+            <h3>Filter</h3>
+            <button onClick={() => filterDate('dueToday')}>Due Today</button>
+            <button onClick={() => filterDate('dueInWeek')}>Due in a week</button>
+            <button onClick={() => filterDate('overdue')}>Overdue</button>
+          </div>
         <main>
             <section>
             <StatusLine

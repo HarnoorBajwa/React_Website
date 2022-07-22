@@ -18,7 +18,7 @@ public class DueDateEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "UTC-3")
     private Date dueDate;
 
 

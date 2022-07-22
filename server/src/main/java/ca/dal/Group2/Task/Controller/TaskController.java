@@ -46,7 +46,6 @@ public class TaskController {
         return task;
     }
 
-
     @PostMapping("/assignTo/{taskId}")
     public Boolean assignTo(@PathVariable("taskId")Long taskId, @RequestBody Map<String, String> payload){
         return userService.addUserToTask(payload.get("userEmail"), taskId);
@@ -74,5 +73,10 @@ public class TaskController {
     @GetMapping("/getDueDate/{taskId}")
     public DueDateEntity getDueDate(@PathVariable("taskId")Long taskId){
         return taskService.getTask(taskId).getDueDate();
+    }
+
+    @GetMapping("/dateFilter/{boardId}")
+    public List<TaskEntity> dateFilter(@PathVariable("boardId")Long boardId,@RequestParam String filterType){
+        return taskService.filterDate(boardId, filterType);
     }
 }
