@@ -1,6 +1,7 @@
 package ca.dal.Group2.Task.Controller;
 
 import ca.dal.Group2.Board.Service.BoardService;
+import ca.dal.Group2.Task.Entity.DueDateEntity;
 import ca.dal.Group2.Task.Entity.TaskEntity;
 import ca.dal.Group2.Task.Entity.dto.TaskDTO;
 import ca.dal.Group2.Task.Service.DueDateService;
@@ -9,6 +10,7 @@ import ca.dal.Group2.User.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -45,9 +47,9 @@ public class TaskController {
     }
 
 
-    @GetMapping("/assignTo/{userId}/{taskId}")
-    public Boolean assignTo(@PathVariable("userId")Long userId, @PathVariable("taskId")Long taskId){
-        return userService.addUserToTask(userId, taskId);
+    @PostMapping("/assignTo/{taskId}")
+    public Boolean assignTo(@PathVariable("taskId")Long taskId, @RequestBody Map<String, String> payload){
+        return userService.addUserToTask(payload.get("userEmail"), taskId);
     }
 
     @GetMapping("/changeStatus/{taskId}/{status}")
@@ -56,8 +58,14 @@ public class TaskController {
     }
 
 
-    @GetMapping("/findAll")
-    public List<TaskDTO> findAll(){
-        return taskService.findAll();
+    @GetMapping("/getAll/{boardId}")
+    public List<TaskEntity> findAll(@PathVariable("boardId")Long boardId){
+        List<TaskEntity> tasks = taskService.findAll(boardId);
+        return tasks;
+    }
+
+    @GetMapping("/getDueDate/{taskId}")
+    public DueDateEntity getDueDate(@PathVariable("taskId")Long taskId){
+        return taskService.getTask(taskId).getDueDate();
     }
 }

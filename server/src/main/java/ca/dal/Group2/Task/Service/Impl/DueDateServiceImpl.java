@@ -16,9 +16,9 @@ public class DueDateServiceImpl implements DueDateService {
 	DueDateRepo dueDateRepo;
 
 	@Override
-	public boolean save(DueDateEntity entity){
-		dueDateRepo.save(entity);
-		return true;
+	public DueDateEntity save(DueDateEntity entity){
+		
+		return dueDateRepo.save(entity);
 	}
 
 	@Override

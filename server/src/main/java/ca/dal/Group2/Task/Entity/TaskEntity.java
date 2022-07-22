@@ -31,9 +31,67 @@ public class TaskEntity {
     @JoinColumn(name = "due_date_id")
     private DueDateEntity dueDate;
 
-    @OneToMany(targetEntity = UserEntity.class)
+    @ManyToOne(targetEntity = UserEntity.class)
     @JoinColumn(name = "task_id")
-    private List<UserEntity> users;
+    private UserEntity user;
+
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Date getCreateTime() {
+        return this.createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public BoardEntity getBoard() {
+        return this.board;
+    }
+
+    public void setBoard(BoardEntity board) {
+        this.board = board;
+    }
+
+    public DueDateEntity getDueDate() {
+        return this.dueDate;
+    }
+
+    public void setDueDate(DueDateEntity dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public UserEntity getUser() {
+        return this.user;
+    }
+
+    public void setUser(UserEntity users) {
+        this.user = users;
+    }
+
 
 
 }

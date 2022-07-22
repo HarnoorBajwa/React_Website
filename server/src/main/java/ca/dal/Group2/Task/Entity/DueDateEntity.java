@@ -22,5 +22,21 @@ public class DueDateEntity {
     private Date dueDate;
 
 
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getDueDate() {
+        return this.dueDate;
+    }
+
+    public void setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
+    }
+
 
 }

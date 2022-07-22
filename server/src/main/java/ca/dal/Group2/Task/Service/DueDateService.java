@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface DueDateService {
 
-    boolean save(DueDateEntity entity);
+    DueDateEntity save(DueDateEntity entity);
 
     List<DueDateEntity> list();
 

@@ -122,13 +122,20 @@ function Dashboard() {
       setShowCreateBoard(false);
     })
   } 
+  const handleSelectBoard = (boardID) => {
+    console.log("clicked DIV");
+    localStorage.setItem("board",boardID);
+    history.push("/tasks")
+  }
   const renderBoards = () => {
     return boards.map(board => {
       return (
-        <Box className={style.board} key={board.id}>
+        
+        <Box className={style.board} key={board.id} >
           {board.boardName}
           <DeleteIcon className={style.deleteIcon}
                       onClick={() => handleClickRemoveBoard(board.id)}/>
+          <Button onClick={() => handleSelectBoard(board.id)}>Tasks</Button>
         </Box>
       )
     })

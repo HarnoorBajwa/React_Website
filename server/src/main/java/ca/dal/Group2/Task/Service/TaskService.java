@@ -14,6 +14,8 @@ public interface TaskService {
 
     Map<String, Object> changeStatus(Long id, String status);
 
-    List<TaskDTO> findAll();
+    List<TaskEntity> findAll(Long boardId);
+
+    public TaskEntity getTask(Long taskId);
 
 }

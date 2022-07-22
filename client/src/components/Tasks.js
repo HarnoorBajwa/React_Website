@@ -14,11 +14,11 @@ function Tasks(){
   function addEmptyTask(status) {
     const lastTask = tasks[tasks.length - 1];
 
-    let newTaskId = 1;
+    let newTaskId = -1;
 
-    if (lastTask !== undefined) {
-      newTaskId = lastTask.id + 1;
-    }
+    // if (lastTask !== undefined) {
+    //   newTaskId = lastTask.id + 1;
+    // }
 
     setTasks((tasks) => [
       ...tasks,
@@ -37,11 +37,90 @@ function Tasks(){
       return task.id !== taskToAdd.id;
     });
 
-    let newTaskList = [...filteredTasks, taskToAdd];
 
-    setTasks(newTaskList);
+    if(taskToAdd.id === -1){
+      // new task
+      const dueDate = {
+        'dueDate':taskToAdd.date + " "+"00:00:00"
+      }
+  
+      fetch('http://localhost:8080/dueDate/create', {
+        method: 'POST',
+        body :JSON.stringify(dueDate),
+        headers: { 'Content-Type': 'application/json'}
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Success:', data);
+        // save the task when the date saves
+        const newTask = {
+          "createTime":"2022-07-22 00:00:00",
+          "name":taskToAdd.title,
+          "status":taskToAdd.status
+        }
+        const boardId = localStorage.getItem("board"); 
+  
+        fetch('http://localhost:8080/task/create/'+data.id+"/"+boardId, {
+          method: 'POST',
+          body :JSON.stringify(newTask),
+          headers: { 'Content-Type': 'application/json'}
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Success:', data);
+          loadTasksFromLocalStorage();
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          loadTasksFromLocalStorage();
+        });
+  
+  
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        loadTasksFromLocalStorage();
+      });
+    }
+    else{
+      //update task 
+      if(taskToAdd.description != undefined){
+        fetch('http://localhost:8080/task/assignTo/'+taskToAdd.id, {
+          method: 'POST',
+          body :JSON.stringify({
+            userEmail:taskToAdd.description
+          }),
+          headers: { 'Content-Type': 'application/json'}
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Success:', data);
+          setTasks([]);
+          loadTasksFromLocalStorage();
 
-    saveTasksToLocalStorage(newTaskList);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          setTasks([]);
+
+          loadTasksFromLocalStorage();
+
+        });
+      }
+    }
+
+    
+
+
+    console.log(taskToAdd);
+
+    // let newTaskList = [...filteredTasks, taskToAdd];
+
+    // setTasks(newTaskList);
+    // setTasks([]);
+
+    // loadTasksFromLocalStorage();
+
   }
 
   function deleteTask(taskId) {
@@ -55,35 +134,89 @@ function Tasks(){
   }
 
   function moveTask(id, newStatus) {
-    let task = tasks.filter((task) => {
-      return task.id === id;
-    })[0];
-
-    let filteredTasks = tasks.filter((task) => {
-      return task.id !== id;
+    console.log(id);
+    console.log(newStatus);
+    fetch('http://localhost:8080/task/changeStatus/'+id+"/"+newStatus, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json'}
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Success:', data);
+      loadTasksFromLocalStorage();
+    })
+    .catch((error) => {
+      console.error('Error:', error);
     });
+    // let task = tasks.filter((task) => {
+    //   return task.id === id;
+    // })[0];
 
-    task.status = newStatus;
+    // let filteredTasks = tasks.filter((task) => {
+    //   return task.id !== id;
+    // });
 
-    let newTaskList = [...filteredTasks, task];
+    // task.status = newStatus;
 
-    setTasks(newTaskList);
+    // let newTaskList = [...filteredTasks, task];
 
-    saveTasksToLocalStorage(newTaskList);
+    // setTasks(newTaskList);
+
+    // saveTasksToLocalStorage(newTaskList);
   }
 
   function saveTasksToLocalStorage(tasks) {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }
 
+  const boardId = localStorage.getItem("board");
+  let loadedTasks = [];
+
   function loadTasksFromLocalStorage() {
-    let loadedTasks = localStorage.getItem("tasks");
-
-    let tasks = JSON.parse(loadedTasks);
-
-    if (tasks) {
+    fetch('http://localhost:8080/task/getAll/'+boardId, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json'}
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Success:', data);
+      for(let i = 0; i < data.length; i++){
+        let user = "";
+        let dueDate = "";
+        if( data[i].user != undefined){
+          user = data[i].user.emailId;
+        }
+        if( data[i].dueDate != undefined ){
+          dueDate = data[i].dueDate.dueDate.split(" ")[0];
+        }
+        loadedTasks.push({
+          id:data[i].id,
+          status:data[i].status,
+          urgency:'',
+          description:user,
+          isCollapsed:true,
+          title:data[i].name,
+          date:dueDate
+        });
+      }
+      let tasks = loadedTasks;
       setTasks(tasks);
-    }
+      console.log(tasks);
+
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+
+
+    // let loadedTasks = localStorage.getItem("tasks");
+
+    // let tasks = JSON.parse(loadedTasks);
+    console.log(tasks);
+
+    // if (tasks) {
+    //   setTasks(tasks);
+    // }
   }
 
   return (

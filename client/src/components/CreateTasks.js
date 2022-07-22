@@ -1,5 +1,8 @@
 import "../styles/createTask.scss";
 import { useState } from "react";
+import { DatePicker } from 'react-datepicker';
+
+import "react-datepicker/dist/react-datepicker.css";
 
 function Task(props) {
   const { addTask, deleteTask, moveTask, task } = props;
@@ -7,6 +10,8 @@ function Task(props) {
   const [urgencyLevel, setUrgencyLevel] = useState(task.urgency);
   const [collapsed, setCollapsed] = useState(task.isCollapsed);
   const [formAction, setFormAction] = useState("");
+  const [startDate, setStartDate] = useState(new Date());
+
 
   function setUrgency(event) {
     setUrgencyLevel(event.target.attributes.urgency.value);
@@ -25,7 +30,8 @@ function Task(props) {
           description: event.target.elements.description.value,
           urgency: urgencyLevel,
           status: task.status,
-          isCollapsed: true
+          isCollapsed: true,
+          date:event.target.elements.date.value
         };
 
         addTask(newTask);
@@ -66,6 +72,10 @@ function Task(props) {
     }
   }
 
+  function handleUserUpdate(user){
+    // console.log("User changed");
+  }
+
   return (
     <div className={`task ${collapsed ? "collapsedTask" : ""}`}>
       <button onClick={handleMoveLeft} className="button moveTask">
@@ -84,9 +94,10 @@ function Task(props) {
           rows="2"
           className="description input"
           name="description"
-          placeholder="Enter Description"
+          placeholder="Enter User"
           defaultValue={task.description}
         />
+        <input name="date" disabled={collapsed} type="date" defaultValue={task.date} selected={startDate} onChange={(date) => setStartDate(date)} />
         <div className="urgencyLabels">
           <label className={`low ${urgencyLevel === "low" ? "selected" : ""}`}>
             <input

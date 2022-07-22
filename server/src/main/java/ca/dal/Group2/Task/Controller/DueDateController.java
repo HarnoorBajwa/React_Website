@@ -16,7 +16,7 @@ public class DueDateController {
     private DueDateService dueDateService;
 
     @PostMapping("/create")
-    public Boolean create(@RequestBody DueDateEntity model){
+    public DueDateEntity create(@RequestBody DueDateEntity model){
         return dueDateService.save(model);
     }
 

@@ -31,7 +31,7 @@ public class TaskServiceImpl implements TaskService{
 	@Override
 	public Map<String, Object> changeStatus(Long id, String status) {
 		HashMap<String, Object> map = new HashMap<>();
-		if(!status.equals("to-do")&&!status.equals("doing")){
+		if(!status.equals("To-Do")&&!status.equals("In Progress")&&!status.equals("Done")){
 			map.put("msg", "status error");
 			return map;
 		}
@@ -50,14 +50,22 @@ public class TaskServiceImpl implements TaskService{
 	}
 
 	@Override
-	public List<TaskDTO> findAll() {
+	public List<TaskEntity> findAll(Long boardId) {
 		List<TaskEntity> list = taskRepo.findAll();
-		ArrayList<TaskDTO> dtos = new ArrayList<>();
+		ArrayList<TaskEntity> dtos = new ArrayList<>();
 		for(TaskEntity entity : list){
-			TaskDTO dto = new TaskDTO();
-			BeanUtils.copyProperties(entity, dto);
-			dtos.add(dto);
+				if(entity.getBoard().getId() == boardId){
+					dtos.add(entity);
+				// TaskDTO dto = new TaskDTO();
+				// BeanUtils.copyProperties(entity, dto);
+				// dtos.add(dto);
+			}
 		}
 		return dtos;
 	}
+
+    public TaskEntity getTask(Long taskId){
+		return taskRepo.getReferenceById(taskId);
+	}
+
 }

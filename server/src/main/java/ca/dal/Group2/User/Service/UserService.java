@@ -106,17 +106,12 @@ public class UserService {
         return false;
     }
 
-    public boolean addUserToTask(Long userId, Long taskId){
-        Optional<UserEntity> user = userRepo.findById(userId);
+    public boolean addUserToTask(String useremailId, Long taskId){
+        Optional<UserEntity> user = Optional.of(userRepo.findByEmailId(useremailId));
         Optional<TaskEntity> task = taskRepo.findById(taskId);
 
         if(user.isPresent() && task.isPresent()){
-            List<UserEntity> users = task.get().getUsers();
-            if(users.isEmpty()){
-                users = new ArrayList<UserEntity>();
-            }
-            users.add(user.get());
-            task.get().setUsers(users);
+            task.get().setUser(user.get());
             taskRepo.save(task.get());
             return true;
         }
