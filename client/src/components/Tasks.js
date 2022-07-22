@@ -130,15 +130,6 @@ function Tasks(){
 
   }
 
-  function deleteTask(taskId) {
-    let filteredTasks = tasks.filter((task) => {
-      return task.id !== taskId;
-    });
-
-    setTasks(filteredTasks);
-
-    saveTasksToLocalStorage(filteredTasks);
-  }
 
   function moveTask(id, newStatus) {
     console.log(id);
@@ -293,7 +284,7 @@ function Tasks(){
                 addTask={addTask}
                 // deleteTask={deleteTask}
                 moveTask={moveTask}
-                status="In Progress"
+                status="Doing"
             />
             <StatusLine
                 tasks={tasks}

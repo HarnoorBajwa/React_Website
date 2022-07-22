@@ -42,10 +42,10 @@ function Task(props) {
   function handleMoveLeft() {
     let newStatus = "";
 
-    if (task.status === "In Progress") {
+    if (task.status === "Doing") {
       newStatus = "To-Do";
     } else if (task.status === "Done") {
-      newStatus = "In Progress";
+      newStatus = "Doing";
     }
 
     if (newStatus !== "") {
@@ -57,8 +57,8 @@ function Task(props) {
     let newStatus = "";
 
     if (task.status === "To-Do") {
-      newStatus = "In Progress";
-    } else if (task.status === "In Progress") {
+      newStatus = "Doing";
+    } else if (task.status === "Doing") {
       newStatus = "Done";
     }
 
