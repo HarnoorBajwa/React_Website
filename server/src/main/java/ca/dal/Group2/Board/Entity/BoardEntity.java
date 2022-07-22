@@ -19,5 +19,31 @@ public class BoardEntity {
 
 
 
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getBoardName() {
+        return this.boardName;
+    }
+
+    public void setBoardName(String boardName) {
+        this.boardName = boardName;
+    }
+
+    public String getBoardDescription() {
+        return this.boardDescription;
+    }
+
+    public void setBoardDescription(String boardDescription) {
+        this.boardDescription = boardDescription;
+    }
+
+
+
 
 }

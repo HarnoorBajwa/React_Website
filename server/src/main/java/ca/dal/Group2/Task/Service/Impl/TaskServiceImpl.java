@@ -17,6 +17,8 @@ import java.util.*;
 
 @Service
 public class TaskServiceImpl implements TaskService{
+	final int secToMilli = 1000;
+	final int secondsInWeek =  604800;
 
 	@Autowired
 	TaskRepo taskRepo;
@@ -36,7 +38,10 @@ public class TaskServiceImpl implements TaskService{
 	@Override
 	public Map<String, Object> changeStatus(Long id, String status) {
 		HashMap<String, Object> map = new HashMap<>();
-		if(!status.equals("To-Do")&&!status.equals("In Progress")&&!status.equals("Done")){
+		boolean toDo = !status.equals("To-Do") && 
+					!status.equals("In Progress") && 
+					!status.equals("Done");
+		if(toDo){
 			map.put("msg", "status error");
 			return map;
 		}
@@ -111,10 +116,10 @@ public class TaskServiceImpl implements TaskService{
 
     }
 	private boolean isDueDateinWeek(DueDateEntity dueDate){
+
 		long secondsDueDate = dueDate.getDueDate().getTime();
 		long secondsCurrent = new Date().getTime();
-		int secondsInWeek = 604800 * 1000;
-		return (secondsDueDate >= secondsCurrent && secondsDueDate <= (secondsCurrent + secondsInWeek));
+		return (secondsDueDate >= secondsCurrent && secondsDueDate <= (secondsCurrent + (secToMilli * secondsInWeek)));
 	}
 
 

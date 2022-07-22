@@ -53,11 +53,11 @@ public class UserCont {
     public String secAns(@RequestBody String email, String answer) {return userService.checkSecurityAns(email,answer);}
 
 
-    @PostMapping("/addWorkspace/{workspaceId}")
-    public boolean addWorkspacetoUser(@PathVariable Integer workspaceId, @RequestParam Integer userId){
-        userService.addWorkspacetoUser(userId, workspaceId);
-        return true;
-    }
+    // @PostMapping("/addWorkspace/{workspaceId}")
+    // public boolean addWorkspacetoUser(@PathVariable Integer workspaceId, @RequestParam Integer userId){
+    //     userService.addWorkspacetoUser(userId, workspaceId);
+    //     return true;
+    // }
 
 
     @GetMapping("/getWorkspaces/{userId}")
@@ -69,8 +69,7 @@ public class UserCont {
     @PostMapping("addUserToWorkspace/{workspaceId}")
     public Boolean addUserToWorkspace(@RequestBody Map<String, Object> payload, @PathVariable Integer workspaceId){
         System.out.println("Getting the email: "+payload.get("userEmail"));
-        UserEntity user = userService.getUserByEmail((String)payload.get("userEmail"));
-        return userService.addWorkspacetoUser(user.getId().intValue(), workspaceId);
+        return userService.addWorkspacetoUser((String)payload.get("userEmail"), workspaceId);
     }
 
 
@@ -80,20 +79,9 @@ public class UserCont {
         String answer = (String)payload.get("answer");
         String password = (String)payload.get("password");
 
-        System.out.println(email);
-        System.out.println(password);
-        System.out.println(answer);
+        return userService.forgetPassword(email, answer, password);
 
-        UserEntity user = userService.getUserByEmail(email);
-        if(user != null){
-            if(user.getAns().equals(answer)){
-                user.setPassword(password);
-                userService.signupUser(user);
-            }
-            return "answer wrong";
-        }
 
-        return "Something is wrong, check your stuff";
     }
 
 }
