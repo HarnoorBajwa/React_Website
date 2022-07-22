@@ -283,7 +283,7 @@ function Tasks(){
                 tasks={tasks}
                 addEmptyTask={addEmptyTask}
                 addTask={addTask}
-                deleteTask={deleteTask}
+                // deleteTask={deleteTask}
                 moveTask={moveTask}
                 status="To-Do"
             />
@@ -291,7 +291,7 @@ function Tasks(){
                 tasks={tasks}
                 addEmptyTask={addEmptyTask}
                 addTask={addTask}
-                deleteTask={deleteTask}
+                // deleteTask={deleteTask}
                 moveTask={moveTask}
                 status="In Progress"
             />
@@ -299,7 +299,7 @@ function Tasks(){
                 tasks={tasks}
                 addEmptyTask={addEmptyTask}
                 addTask={addTask}
-                deleteTask={deleteTask}
+                // deleteTask={deleteTask}
                 moveTask={moveTask}
                 status="Done"
             />

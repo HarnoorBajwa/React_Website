@@ -5,17 +5,15 @@ import { DatePicker } from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
 function Task(props) {
-  const { addTask, deleteTask, moveTask, task } = props;
+  const { addTask, moveTask, task } = props;
 
-  const [urgencyLevel, setUrgencyLevel] = useState(task.urgency);
+
   const [collapsed, setCollapsed] = useState(task.isCollapsed);
   const [formAction, setFormAction] = useState("");
   const [startDate, setStartDate] = useState(new Date());
 
 
-  function setUrgency(event) {
-    setUrgencyLevel(event.target.attributes.urgency.value);
-  }
+  
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -28,7 +26,7 @@ function Task(props) {
           id: task.id,
           title: event.target.elements.title.value,
           description: event.target.elements.description.value,
-          urgency: urgencyLevel,
+        
           status: task.status,
           isCollapsed: true,
           date:event.target.elements.date.value
@@ -39,9 +37,6 @@ function Task(props) {
       }
     }
 
-    if (formAction === "delete") {
-      deleteTask(task.id);
-    }
   }
 
   function handleMoveLeft() {
@@ -98,39 +93,7 @@ function Task(props) {
           defaultValue={task.description}
         />
         <input name="date" disabled={collapsed} type="date" defaultValue={task.date} selected={startDate} onChange={(date) => setStartDate(date)} />
-        <div className="urgencyLabels">
-          <label className={`low ${urgencyLevel === "low" ? "selected" : ""}`}>
-            <input
-              urgency="low"
-              onChange={setUrgency}
-              type="radio"
-              name="urgency"
-            />
-            low
-          </label>
-          <label
-            className={`medium ${urgencyLevel === "medium" ? "selected" : ""}`}
-          >
-            <input
-              urgency="medium"
-              onChange={setUrgency}
-              type="radio"
-              name="urgency"
-            />
-            medium
-          </label>
-          <label
-            className={`high ${urgencyLevel === "high" ? "selected" : ""}`}
-          >
-            <input
-              urgency="high"
-              onChange={setUrgency}
-              type="radio"
-              name="urgency"
-            />
-            high
-          </label>
-        </div>
+        
         <button
           onClick={() => {
             setFormAction("save");
@@ -139,16 +102,7 @@ function Task(props) {
         >
           {collapsed ? "Edit" : "Save"}
         </button>
-        {collapsed && (
-          <button
-            onClick={() => {
-              setFormAction("delete");
-            }}
-            className="button delete"
-          >
-            X
-          </button>
-        )}
+        
       </form>
       <button onClick={handleMoveRight} className="button moveTask">
         &#187;

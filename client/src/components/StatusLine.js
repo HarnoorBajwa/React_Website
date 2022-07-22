@@ -3,7 +3,7 @@ import "../styles/statusLine.scss";
 import Task from "../components/CreateTasks";
 
 export default function StatusLine(props) {
-  const { status, tasks, addTask, deleteTask, addEmptyTask, moveTask } = props;
+  const { status, tasks, addTask, addEmptyTask, moveTask } = props;
 
   let taskList, tasksForStatus;
 
@@ -22,7 +22,7 @@ export default function StatusLine(props) {
       return (
         <Task
           addTask={(task) => addTask(task)}
-          deleteTask={(id) => deleteTask(id)}
+         
           moveTask={(id, status) => moveTask(id, status)}
           key={task.id}
           task={task}
