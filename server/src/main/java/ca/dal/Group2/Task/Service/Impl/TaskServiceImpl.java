@@ -64,6 +64,18 @@ public class TaskServiceImpl implements TaskService{
 		return dtos;
 	}
 
+	@Override
+	public List<TaskEntity> search(Long boardId, String query){
+		List<TaskEntity> list = taskRepo.findAll();
+		ArrayList<TaskEntity> dtos = new ArrayList<>();
+		for(TaskEntity entity : list){
+				if(entity.getBoard().getId() == boardId && entity.getName().contains(query)){
+					dtos.add(entity);
+			}
+		}
+		return dtos;
+	}
+
     public TaskEntity getTask(Long taskId){
 		return taskRepo.getReferenceById(taskId);
 	}

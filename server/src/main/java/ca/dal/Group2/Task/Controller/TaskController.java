@@ -64,6 +64,13 @@ public class TaskController {
         return tasks;
     }
 
+    @GetMapping("/search/{boardId}")
+    public List<TaskEntity> search(@PathVariable("boardId")Long boardId, @RequestParam String query){
+        List<TaskEntity> tasks = taskService.search(boardId, query);
+        return tasks;
+    }
+
+
     @GetMapping("/getDueDate/{taskId}")
     public DueDateEntity getDueDate(@PathVariable("taskId")Long taskId){
         return taskService.getTask(taskId).getDueDate();

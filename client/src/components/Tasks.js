@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "../styles/Task.scss";
 import StatusLine from "./StatusLine";
 
@@ -6,6 +6,10 @@ import StatusLine from "./StatusLine";
 function Tasks(){
 
     const [tasks, setTasks] = useState([]);
+    // const [searchQuery, setSearchQuery] = useState("");
+    var searchQuery = "";
+    const search = useRef();
+
 
     useEffect(() => {
         loadTasksFromLocalStorage();
@@ -172,8 +176,27 @@ function Tasks(){
   const boardId = localStorage.getItem("board");
   let loadedTasks = [];
 
+  const searchTasks = () => {
+    // setSearchQuery(search.current.value);
+    // setSearchQuery("tasks");
+    searchQuery = search.current.value;
+    console.log("input box: "+searchQuery);
+    loadTasksFromLocalStorage();
+  }
+
   function loadTasksFromLocalStorage() {
-    fetch('http://localhost:8080/task/getAll/'+boardId, {
+    let fetchUrl = "http://localhost:8080/task/";
+    if(searchQuery != ""){
+      console.log("getting search");
+      fetchUrl += "search/"+boardId+"/?query="+searchQuery;
+    }
+    else{
+      fetchUrl += "getAll/"+boardId;
+    }
+
+
+
+    fetch(fetchUrl, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json'}
     })
@@ -223,6 +246,11 @@ function Tasks(){
     
         <div className="TaskCom">
         <h1>Task Management</h1>
+        <span>
+          <h3>search: </h3>
+          <input ref={search}></input>
+          <button onClick={() => searchTasks()}>Go</button>
+          </span>
         <main>
             <section>
             <StatusLine

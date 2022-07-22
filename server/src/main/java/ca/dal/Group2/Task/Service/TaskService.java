@@ -16,6 +16,8 @@ public interface TaskService {
 
     List<TaskEntity> findAll(Long boardId);
 
+    public List<TaskEntity> search(Long boardId, String query);
+
     public TaskEntity getTask(Long taskId);
 
 }
