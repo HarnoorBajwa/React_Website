@@ -1,13 +1,10 @@
 package ca.dal.Group2.User.Entity;
 
-import java.util.List;
-
-import javax.persistence.*;
-
+import ca.dal.Group2.Workspace.Entity.WorkSpaceEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import ca.dal.Group2.Board.Entity.BoardEntity;
-import ca.dal.Group2.Workspace.Entity.WorkSpaceEntity;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class UserEntity {
@@ -27,6 +24,19 @@ public class UserEntity {
     @ManyToMany(targetEntity = WorkSpaceEntity.class)
     @JoinColumn(name = "workspace_map")
     private List<WorkSpaceEntity> workspaces;
+
+//    @JsonIgnore
+//    @ManyToMany(targetEntity = TaskEntity.class)
+//    @JoinColumn(name = "task_map")
+//    private List<TaskEntity> tasks;
+
+//    public List<TaskEntity> getTasks() {
+//        return tasks;
+//    }
+//
+//    public void setTasks(List<TaskEntity> tasks) {
+//        this.tasks = tasks;
+//    }
 
     public List<WorkSpaceEntity> getWorkspaces(){
         return workspaces;
@@ -82,8 +92,8 @@ public class UserEntity {
     }
 
 
-    public String getSecurity(){ return secQ; }
-    public void setSecurity(String secQ){this.secQ = secQ;}
+    public String getSecQ(){ return secQ; }
+    public void setSecQ(String secQ){this.secQ = secQ;}
 
     public String getAns(){return ans;}
     public void setAns(String ans){this.ans =  ans;}

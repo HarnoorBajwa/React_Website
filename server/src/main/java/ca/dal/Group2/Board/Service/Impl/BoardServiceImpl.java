@@ -1,17 +1,16 @@
 package ca.dal.Group2.Board.Service.Impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import ca.dal.Group2.Board.Entity.BoardEntity;
 import ca.dal.Group2.Board.Repository.BoardRepo;
 import ca.dal.Group2.Board.Service.BoardService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BoardServiceImpl implements BoardService{
-	
+
 	@Autowired
 	BoardRepo boardRepository;
 
@@ -31,4 +30,14 @@ public class BoardServiceImpl implements BoardService{
         return true;
     }
 
+
+	@Override
+	public BoardEntity findById(Long id) {
+		Optional<BoardEntity> optional = boardRepository.findById(id);
+		if(optional.isPresent()){
+			return optional.get();
+		}else{
+			return null;
+		}
+	}
 }

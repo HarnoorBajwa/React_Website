@@ -49,17 +49,6 @@ function ForgotPasswordForm() {
     }
 
 
-    // function submitHandler(event){
-    //     event.preventDefault();
-    // Read the values
-
-    //    const email = emailRef.current.value;
-    //    const password = passwordRef.current.value;
-    //    const user = { email,password};
-    //    // call
-    //     props.loginUser(user);
-    //sdgsgs
-
     return (
         <section>
             <Grid>

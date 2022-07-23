@@ -79,7 +79,7 @@ import * as Yup from 'yup'
                  </Formik>
              </Paper>
          </Grid>
-     )
+     );
 }
 
 

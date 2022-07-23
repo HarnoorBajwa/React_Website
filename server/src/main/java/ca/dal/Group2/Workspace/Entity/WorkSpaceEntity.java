@@ -1,16 +1,10 @@
 package ca.dal.Group2.Workspace.Entity;
 
-import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-
 import ca.dal.Group2.Board.Entity.BoardEntity;
 import lombok.Data;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -27,13 +21,7 @@ public class WorkSpaceEntity {
     @JoinColumn(name = "board_map")
     private List<BoardEntity> boards;
 
-    public List<BoardEntity> getBoards(){
-        return boards;
-    }
 
-    public void setBoards(List<BoardEntity> boards){
-        this.boards = boards;
-    }
 
     public Long getId() {
         return this.id;
@@ -66,6 +54,17 @@ public class WorkSpaceEntity {
     public void setWorkSpaceType(String workSpaceType) {
         this.workSpaceType = workSpaceType;
     }
+
+    public List<BoardEntity> getBoards() {
+        return this.boards;
+    }
+
+    public void setBoards(List<BoardEntity> boards) {
+        this.boards = boards;
+    }
+
+
+
 
 
 
