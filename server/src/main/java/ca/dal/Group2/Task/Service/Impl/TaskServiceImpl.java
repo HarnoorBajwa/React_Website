@@ -19,6 +19,7 @@ import java.util.*;
 public class TaskServiceImpl implements TaskService{
 	final int secToMilli = 1000;
 	final int secondsInWeek =  604800;
+	final int secondsInDay = 86400;
 
 	@Autowired
 	TaskRepo taskRepo;
@@ -64,7 +65,7 @@ public class TaskServiceImpl implements TaskService{
 		List<TaskEntity> list = taskRepo.findAll();
 		ArrayList<TaskEntity> dtos = new ArrayList<>();
 		for(TaskEntity entity : list){
-				if(Long.toString(entity.getBoard().getId()).equals(Long.toString(boardId))){
+				if(entity.getBoard().getId().equals(boardId)){
 					dtos.add(entity);
 			}
 		}
@@ -76,7 +77,7 @@ public class TaskServiceImpl implements TaskService{
 		List<TaskEntity> list = taskRepo.findAll();
 		ArrayList<TaskEntity> dtos = new ArrayList<>();
 		for(TaskEntity entity : list){
-				if(entity.getBoard().getId() == boardId && entity.getName().contains(query)){
+				if(entity.getBoard().getId().equals(boardId)  && entity.getName().contains(query)){
 					dtos.add(entity);
 			}
 		}
@@ -89,9 +90,8 @@ public class TaskServiceImpl implements TaskService{
 		for(TaskEntity entity : list){
 			DueDateEntity dueDate = entity.getDueDate();
 				if(dueDate != null){
-					if(entity.getBoard().getId() == boardId &&
-						dueDate.getDueDate().before(new Date())){
-							System.out.println("ADDING");
+					if(entity.getBoard().getId().equals(boardId) &&
+						dueDate.getDueDate().before(new Date(new Date().getTime()-(secondsInDay*secToMilli)))){
 						filtered.add(entity);
 				}
 
@@ -105,7 +105,7 @@ public class TaskServiceImpl implements TaskService{
 		for(TaskEntity entity : list){
 			DueDateEntity dueDate = entity.getDueDate();
 				if(dueDate != null){
-					if(entity.getBoard().getId() == boardId &&
+					if(entity.getBoard().getId().equals(boardId)  &&
 						DateUtils.isSameDay(dueDate.getDueDate(), new Date()) ){
 						filtered.add(entity);
 				}
@@ -130,7 +130,7 @@ public class TaskServiceImpl implements TaskService{
 			DueDateEntity dueDate = entity.getDueDate();
 
 				if(dueDate != null){
-					if(entity.getBoard().getId() == boardId &&
+					if(entity.getBoard().getId().equals(boardId)  &&
 						isDueDateinWeek(dueDate) ){
 						filtered.add(entity);
 				}
