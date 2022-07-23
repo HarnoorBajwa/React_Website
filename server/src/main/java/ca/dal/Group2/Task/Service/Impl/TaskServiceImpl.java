@@ -39,7 +39,7 @@ public class TaskServiceImpl implements TaskService{
 	public Map<String, Object> changeStatus(Long id, String status) {
 		HashMap<String, Object> map = new HashMap<>();
 		boolean toDo = !status.equals("To-Do") && 
-					!status.equals("In Progress") && 
+					!status.equals("Doing") && 
 					!status.equals("Done");
 		if(toDo){
 			map.put("msg", "status error");
